@@ -8,18 +8,26 @@
     <header>
       <h1>Overlook Hotel Paradise</h1>
     </header>
-    <main class="log-in-page">
+    <!-- <main class="login-page">
       <h2>Welcome</h2>
-      <section class="log-in-section">
-        <form class="log-in-form" method="post">
+      <section class="login-section">
+        <form class="login-form" method="post">
           <h3>Please Login</h3>
           <input class="user-name-input" type="text" name="username" placeholder="Username" required>
 			    <input class="password-input" type="password" name="password" placeholder="Password" required>
           <button class="login-button" type="button" role="button">Login</button>
         </form>
       </section>
+    </main> -->
+    <main class="user-page">
+      <h4 class="welcome-user">Welcome User Name</h4>
+      <section class="create-booking">
+        <div class="date-selector">
+          <p>Please choose the day you'd like to stay with us:</p>
+          <input class="date-input" type="number" placeholder="YYYY/MM/D">
+        </div>
+      </section>
     </main>
-
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>

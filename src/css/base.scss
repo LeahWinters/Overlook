@@ -27,7 +27,9 @@ h1 {
   padding-top: 0.7%;
 }
 
-.log-in-page {
+// login page
+
+.login-page {
   background-image: url(https://q-xx.bstatic.com/images/hotel/max1024x768/373/37386056.jpg);
   background-position: center;
   background-size: cover;
@@ -46,7 +48,7 @@ h2 {
   margin-top:-3%
 }
 
-.log-in-section {
+.login-section {
   display: flex;
   justify-content: center;
   z-index: 1;
@@ -58,7 +60,7 @@ h2 {
   align-items: center;
 }
 
-.log-in-form {
+.login-form {
   display: flex;
   background-color: white;
   border-radius: 2%;
@@ -113,4 +115,41 @@ h3 {
 .login-button:hover {
   background-color: $accent-purple-color;
   border: solid 2px $accent-purple-color;
+}
+
+// user page
+
+.user-page {
+  align-items: center;
+  background-image: url(https://images.unsplash.com/photo-1568145675395-66a2eda0c6d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80);
+  background-position: center;
+  background-size: cover;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 0;
+}
+
+h4 {
+  font-size: 3em;
+  margin: 0;
+  margin-bottom: 3%;
+  background-color: #78DBE2;
+  border-radius: 0.2em;
+  padding: 0.5%;
+}
+
+.create-booking {
+  display: flex;
+  justify-content: center;
+  background-color: #78DBE2;
+  width: 70%;
+  height: 70%;
+  border-radius: 0.8em;
+  overflow: scroll;
+}
+
+.date-selector {
+
 }
