@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Webpack Starter Kit</title>
+    <meta charset='UTF-8'>
+    <title>Overlook</title>
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
+    <header>
+      <h1>Hotel Paradise</h1>
+    </header>
+    <main class="log-in-page">
+      <h2>Welcome</h2>
+      <section class="log-in-section">
+        <form class="log-in-form" method="post">
+          <h3>Please Login</h3>
+          <input class="user-name-input" type="text" name="username" placeholder="Username" required>
+			    <input class="password-input" type="password" name="password" placeholder="Password" required>
+          <button class="login-button" type="button" role="button">Login</button>
+        </form>
+      </section>
+    </main>
 
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
