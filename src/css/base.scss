@@ -1,6 +1,116 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: pink;
+$main-purple-color: #E3D3ED;
+$accent-purple-color: #BA74E6;
+
+html {
+  width: 100%;
+  height: 100%;
+}
 
 body {
-  background-color: $primary-background;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  height: 10%;
+  background-color: $main-purple-color;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  font-size: 3.5em;
+  margin: 0;
+  padding-top: 0.7%;
+}
+
+.log-in-page {
+  background-image: url(https://q-xx.bstatic.com/images/hotel/max1024x768/373/37386056.jpg);
+  background-position: center;
+  background-size: cover;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 0;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  font-size: 4.3em;
+  margin: 0;
+  margin-top:-3%
+}
+
+.log-in-section {
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  flex-direction: column;
+  width: 40%;
+  height: 65%;
+  margin: 0;
+  margin-left: 30%;
+  align-items: center;
+}
+
+.log-in-form {
+  display: flex;
+  background-color: white;
+  border-radius: 2%;
+  justify-content: center;
+  z-index: 1;
+  flex-direction: column;
+  width: 80%;
+  height: 80%;
+}
+
+h3 {
+  align-self: center;
+  font-size: 2em;
+  margin: 0;
+  margin-bottom: 2%
+}
+
+.user-name-input {
+  height: 14%;
+  width: 80%;
+  align-self: center;
+  margin: 2%;
+  font-size: 1.5em;
+  border-radius: 7px;
+  border: solid 2px $main-purple-color;
+  padding-left: 1%;
+}
+
+.password-input {
+  height: 14%;
+  width: 80%;
+  align-self: center;
+  margin: 2%;
+  font-size: 1.5em;
+  border-radius: 7px;
+  border: solid 2px $main-purple-color;
+  padding-left: 1%;
+}
+
+.login-button {
+  height: 14%;
+  width: 81%;
+  align-self: center;
+  margin: 2%;
+  font-size: 1.5em;
+  background-color: $main-purple-color;
+  border-radius: 7px;
+  border: solid 2px $main-purple-color;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: $accent-purple-color;
+  border: solid 2px $accent-purple-color;
 }
