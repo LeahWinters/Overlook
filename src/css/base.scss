@@ -142,7 +142,7 @@ h4 {
 
 .create-booking {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: #78DBE2;
   width: 70%;
   height: 70%;
@@ -152,4 +152,32 @@ h4 {
 
 .date-selector {
 
+}
+
+.select-date-message {
+  font-size: 1.3em;
+}
+
+.date-input {
+  height: 8%;
+  width: 50%;
+  font-size: 1.2em;
+  // margin-top: 1%;
+}
+
+.submit-date-button {
+  height: 9%;
+  font-size: 1em;
+}
+
+.filter-hotel-rooms-dropdown {
+  overflow: hidden;
+}
+
+.filter-content {
+  display: none;
+  // display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
 }

@@ -3,6 +3,7 @@
   <head>
     <meta charset='UTF-8'>
     <title>Overlook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <header>
@@ -23,9 +24,22 @@
       <h4 class="welcome-user">Welcome User Name</h4>
       <section class="create-booking">
         <div class="date-selector">
-          <p>Please choose the day you'd like to stay with us:</p>
+          <p class="select-date-message">Please choose the day you'd like to stay with us:</p>
           <input class="date-input" type="number" placeholder="YYYY/MM/D">
+          <button class="submit-date-button" type="button" role="button">Select Date</button>
         </div>
+        <div class="filter-hotel-rooms-dropdown">
+          <button type="button" role="button">Filter you room search <i class="fa fa-caret-down"></i></button>
+          <div class="filter-content">
+            <a href="#">Residential Suite</a>
+            <a href="#">Suite</a>
+            <a href="#">Junior Suite</a>
+            <a href="#">Single Room</a>
+          </div>
+        </div>
+        <section class="available-bookings-holder">
+
+        </section>
       </section>
     </main>
 

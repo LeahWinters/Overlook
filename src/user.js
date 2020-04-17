@@ -4,6 +4,7 @@ class User {
     this.name = userName;
     this.pastTrips = [];
     this.upcomingTrips = [];
+    this.allbookings = []
   }
 
   selectRoomToBook() {
