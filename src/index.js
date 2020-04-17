@@ -1,13 +1,50 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
 // An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
-
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
+import Hotel from './hotel';
+import User from './user';
+import Manager from './manager';
+import domUpdates from './domUpdates';
+// var Moment = require('moment');
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+let userData;
+let roomData;
+let bookingData;
+let hotel;
+// let todaysDate = Moment().format('YYYY/MM/DD');
 
-console.log('This is the JavaScript entry file - your code begins here.');
+userData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
+  .then(data => data.json())
+  .then(data => data.users)
+  .catch(error => console.log('Theres been and error with fetching userData'));
+
+console.log(userData);
+
+roomData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms')
+  .then(data => data.json())
+  .then(data => data.rooms)
+  .catch(error => console.log('Theres been and error with fetching roomData'));
+
+console.log(roomData);
+
+bookingData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
+  .then(data => data.json())
+  .then(data => data.bookings)
+  .catch(error => console.log('Theres been and error with fetching bookingData'));
+
+console.log(bookingData);
+
+Promise.all([userData, roomData, bookingData])
+  .then(data => {
+    userData = data[0];
+    roomData = data[1];
+    bookingData = data[2];
+  })
+  .then(() => {
+    hotel = new Hotel(userData, roomData, bookingData);
+    console.log('userData:', userData, 'roomData:', roomData, 'bookingData:', bookingData);
+  })
+  .catch(error => {
+    console.log('Opps! Something went wrong with the promise.all', error)
+  });
