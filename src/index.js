@@ -43,8 +43,58 @@ Promise.all([userData, roomData, bookingData])
   })
   .then(() => {
     hotel = new Hotel(userData, roomData, bookingData);
-    console.log('userData:', userData, 'roomData:', roomData, 'bookingData:', bookingData);
+    generateAllUsers();
+    generateRoomObj();
+    generateBookingObj();
   })
   .catch(error => {
-    console.log('Opps! Something went wrong with the promise.all', error)
+    console.log('Opps! Something went wrong with the promise.all', error);
   });
+
+let generateAllUsers = () => {
+  userData.forEach(user => {
+    user = new User(user);
+    hotel.allGuests.push(user);
+  })
+}
+
+let generateRoomObj = () => {
+  roomData.forEach(room => {
+    let roomObj = {
+      'number': room.number,
+      'roomType': room.roomType,
+      'bidet': room.bidet,
+      'bedSize': room.bedSize,
+      'numBeds': room.numBeds
+    }
+    hotel.allRooms.push(roomObj);
+  })
+}
+
+let generateBookingObj = () => {
+  hotel.allCurrentBookings = matchRoomsToCorrectBookings();
+}
+
+let matchRoomsToCorrectBookings = () => {
+  let bookings = [];
+  bookingData.map(booking => {
+    roomData.forEach(room => {
+      if(booking.roomNumber === room.number) {
+        let bookingObj = {
+          'id': booking.id,
+          'userId': booking.userId,
+          'date': booking.date,
+          'roomNumber': room.roomNumber,
+          'roomType': room.roomType,
+          'bidet': room.bidet,
+          'bedSize': room.bedSize,
+          'numBeds': room.numBeds,
+          'costPerNight': room.costPerNight,
+          'roomServiceCharges': booking.roomServiceCharges
+        }
+        bookings.push(bookingObj);
+      }
+    })
+  })
+  return bookings;
+}
