@@ -1,39 +1,33 @@
-// An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 import Hotel from './hotel';
 import User from './user';
 import Manager from './manager';
 import domUpdates from './domUpdates';
-// var Moment = require('moment');
 
 let userData;
 let roomData;
 let bookingData;
 let hotel;
-// let todaysDate = Moment().format('YYYY/MM/DD');
+let manager;
+let customer;
 
 userData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
   .then(data => data.json())
   .then(data => data.users)
-  .catch(error => console.log('Theres been and error with fetching userData'));
-
-console.log(userData);
+  .catch(error => console.log('Theres been an error with fetching userData'));
 
 roomData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms')
   .then(data => data.json())
   .then(data => data.rooms)
-  .catch(error => console.log('Theres been and error with fetching roomData'));
-
-console.log(roomData);
+  .catch(error => console.log('Theres been an error with fetching roomData'));
 
 bookingData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
   .then(data => data.json())
   .then(data => data.bookings)
-  .catch(error => console.log('Theres been and error with fetching bookingData'));
+  .catch(error => console.log('Theres been an error with fetching bookingData'));
 
-console.log(bookingData);
+// take the promise and the fetches and put inside a method, and call the method onload. makes it a bit cleaner.
 
 Promise.all([userData, roomData, bookingData])
   .then(data => {
@@ -51,16 +45,16 @@ Promise.all([userData, roomData, bookingData])
     console.log('Opps! Something went wrong with the promise.all', error);
   });
 
-let generateAllUsers = () => {
+const generateAllUsers = () => {
   userData.forEach(user => {
     user = new User(user);
     hotel.allGuests.push(user);
   })
 }
 
-let generateRoomObj = () => {
+const generateRoomObj = () => {
   roomData.forEach(room => {
-    let roomObj = {
+    const roomObj = {
       'number': room.number,
       'roomType': room.roomType,
       'bidet': room.bidet,
@@ -71,11 +65,11 @@ let generateRoomObj = () => {
   })
 }
 
-let generateBookingObj = () => {
+const generateBookingObj = () => {
   hotel.allCurrentBookings = matchRoomsToCorrectBookings();
 }
 
-let matchRoomsToCorrectBookings = () => {
+const matchRoomsToCorrectBookings = () => {
   let bookings = [];
   bookingData.map(booking => {
     roomData.forEach(room => {
@@ -99,33 +93,82 @@ let matchRoomsToCorrectBookings = () => {
   return bookings;
 }
 
-// capture text in the input user
-// capture text in the Password
+// post try
+
+// const createBooking = () => {
+//   const data = {
+//     'id': `${Date.now()}`,
+//     'userID': 2,
+//     'date': '2020/04/18',
+//     'roomNumber': 4
+//   }
+//   fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json'
+//       },
+//     body: JSON.stringify(data)
+//   })
+//   .then(res => console.log(res))
+//   .catch(error => console.log("There has been an issue with your post"));
+// }
 
 
-let gatherLoginInfo = () => {
-  let userNameInput = $('.user-name-input');
-  let passwordInput = $('.password-input');
+const createManager = () => {
+  manager = new Manager();
+}
+
+const createCustomer = (id, name) => {
+  customer = new User(id, name);
+}
+
+const gatherLoginInfo = () => {
+  const userNameInput = $('.user-name-input');
+  const passwordInput = $('.password-input');
   if (userNameInput.val() === 'manager' && passwordInput.val() === 'overlook2020') {
-    changeMainClassToManager();
+    createManager();
+    createBooking();
+    changeSectionClassToManager();
     displayManagerPage();
+  } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
+    changeSectionClassToUser();
+    displayUserPage();
+  } else if (!getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
+    $('.username-error').css('visibility', 'visible');
+  } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() !== 'overlook2020') {
+    $('.password-error').css('visibility', 'visible');
   }
 }
 
-let changeMainClassToManager = () => {
-  console.log('made it')
+const getUserIdNumber = (userNameInput) => {
+  const user = userData.find(user => {
+    return `customer${user.id}` === userNameInput;
+  });
+  if (user === undefined) {
+    return false;
+  } else {
+    createCustomer(user.id, user.name);
+    return true;
+  }
+}
+
+const changeSectionClassToManager = () => {
   $('.login-page').removeClass('.login-page').addClass('.manager-page');
+}
+
+const changeSectionClassToUser = () => {
+  $('.login-page').removeClass('.login-page').addClass('.user-page');
 }
 
 $('.login-button').on('click', gatherLoginInfo);
 
-let displayManagerPage = () => {
+const displayManagerPage = () => {
   $('.login-page').html(`<section class='manager-page'>
     <h4 class="manager-name">Manager Name</h4>
     <section class="manager-info">
       <section class="hotel-data">
-        <p class="rooms-avail-todays-date">Number of Rooms Available Today: 15</p>
-        <p class="total-revenue-today">Total Revenue Today: $3000</p>
+        <p class="rooms-avail-todays-date">Number of Rooms Available Today: ${hotel.getNumOfRoomsAvailibleToday()}</p>
+        <p class="total-revenue-today">Total Revenue Today: ${hotel.calculateTodaysRevenue()}</p>
         <p class="percent-rooms-occupied">Percentage of Rooms Occupied Today: 30%</p>
       </section>
       <section class="find-user">
@@ -186,6 +229,56 @@ let displayManagerPage = () => {
   </section>`);
 }
 
-// let displayUserPage = () => {
-//
-// }
+const displayUserPage = () => {
+  $('.login-page').html(`<section class="user-page">
+    <h4 class="welcome-user">Welcome ${user.name}</h4>
+    <section class="create-booking">
+      <div class="date-selector">
+        <p class="select-date-message">Please selecte the day you'd like to stay with us:</p>
+        <div class="date-input-btn-holder">
+          <input class="date-input" type="number" placeholder="YYYY/MM/DD">
+          <button class="submit-date-button" type="button" role="button">Select Date</button>
+        </div>
+      </div>
+      <div class="filter-hotel-rooms-dropdown-user">
+        <button class="filter-button"type="button" role="button">Filter you room search <i class="fa fa-caret-down"></i></button>
+        <div class="filter-content">
+          <a href="#">Residential Suite</a>
+          <a href="#">Suite</a>
+          <a href="#">Junior Suite</a>
+          <a href="#">Single Room</a>
+        </div>
+      </div>
+      <p class="avail-booking-title-user">All Available Rooms: </p>
+      <section class="available-bookings-holder">
+        <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
+        <div class="available-room-info">
+          <p class="trip-date">2020/06/24</p>
+          <p class="room-type">Residential Suite</p>
+          <p class="room-number">1</p>
+        </div>
+        <button type="button" role="button" class="book-room-button">Book Room</button>
+      </section>
+      <p class="future-booking-title-user">Your Upcoming Bookings: </p>
+      <section class="future-bookings-holder">
+        <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
+        <div class="future-room-info">
+          <p class="trip-date">2020/06/24</p>
+          <p class="room-type">Residential Suite</p>
+          <p class="room-number">1</p>
+          <p class="confirmation-code">Confirmation Code</p>
+        </div>
+      </section>
+      <p class="past-booking-title-user">Your Past Bookings: </p>
+      <section class="past-bookings-holder">
+        <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
+        <div class="past-room-info">
+          <p class="trip-date">2020/06/24</p>
+          <p class="room-type">Residential Suite</p>
+          <p class="room-number">1</p>
+          <p class="confirmation-code">Confirmation Code</p>
+        </div>
+      </section>
+    </section>
+    </section>`);
+}

@@ -1,10 +1,9 @@
 class User {
-  constructor (userId, userName) {
+  constructor (userId, guestName) {
     this.id = userId;
-    this.name = userName;
+    this.name = guestName;
     this.pastTrips = [];
     this.upcomingTrips = [];
-    this.allbookings = []
   }
 
   selectRoomToBook() {
@@ -15,9 +14,6 @@ class User {
 
   }
 
-  filterUserBookings() {
-
-  }
 }
 
 export default User;

@@ -1,7 +1,14 @@
-class Manager {
+import User from './user';
+import Hotel from './hotel';
+
+class Manager extends User {
   constructor() {
+    super();
 
   }
+  // super.selectRoomToBook();
+
+
 
   searchUserByName() {
 

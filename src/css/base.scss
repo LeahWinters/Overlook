@@ -124,6 +124,13 @@ h3 {
   border: solid 2px $accent-purple-color;
 }
 
+.username-error,
+.password-error {
+  visibility: hidden;
+  color: red;
+  margin: 0;
+}
+
 //manager-page
 
 .manager-page {
