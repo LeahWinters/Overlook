@@ -98,3 +98,55 @@ let matchRoomsToCorrectBookings = () => {
   })
   return bookings;
 }
+
+// capture text in the input user
+// capture text in the Password
+
+
+let gatherLoginInfo = () => {
+  let userNameInput = $('.user-name-input');
+  let passwordInput = $('.password-input');
+  if (userNameInput.val() === 'manager' && passwordInput.val() === 'overlook2020') {
+    $('.login-page').html(`<section class='manager-page'><h4 class="welcome-user">Manager Name</h4>
+    <section class="manager-info">
+      <p class="rooms-avail-todays-date">15</p>
+      <p class="total-revenue-today">$3000</p>
+      <p class="percent-rooms-occupied">30%</p>
+    </section>
+    <section class="create-booking">
+      <div class="date-selector">
+        <p class="select-date-message">Please choose the day you'd like to stay with us:</p>
+        <div class="date-input-btn-holder">
+          <input class="date-input" type="number" placeholder="YYYY/MM/DD">
+          <button class="submit-date-button" type="button" role="button">Select Date</button>
+        </div>
+      </div>
+      <div class="filter-hotel-rooms-dropdown">
+        <button class="filter-button"type="button" role="button">Filter you room search <i class="fa fa-caret-down"></i></button>
+        <div class="filter-content">
+          <a href="#">Residential Suite</a>
+          <a href="#">Suite</a>
+          <a href="#">Junior Suite</a>
+          <a href="#">Single Room</a>
+        </div>
+      </div>
+    </section>
+    </section>`);
+    changeMainClassToManager();
+  }
+}
+
+let changeMainClassToManager = () => {
+  console.log('made it')
+  $('.login-page').removeClass('.login-page').addClass('.manager-page');
+}
+
+$('.login-button').on('click', gatherLoginInfo);
+
+// let displayUserPage = () => {
+//
+// }
+//
+// let displayManagerPage = () => {
+//
+// }

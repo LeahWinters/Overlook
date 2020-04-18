@@ -1,6 +1,8 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
 $main-purple-color: #E3D3ED;
 $accent-purple-color: #BA74E6;
+$accent-blue-color: #2A7BA1;
+$main-blue-color: #78DBE2;
 
 html {
   width: 100%;
@@ -27,13 +29,18 @@ h1 {
   padding-top: 0.7%;
 }
 
+main {
+  height: 90%;
+  overflow: scroll;
+}
+
 // login page
 
 .login-page {
   background-image: url(https://q-xx.bstatic.com/images/hotel/max1024x768/373/37386056.jpg);
   background-position: center;
   background-size: cover;
-  height: 90%;
+  height: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -117,6 +124,108 @@ h3 {
   border: solid 2px $accent-purple-color;
 }
 
+//manager-page
+
+.manager-page {
+  align-items: center;
+  background-image: url(https://images.unsplash.com/photo-1568145675395-66a2eda0c6d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80);
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 0;
+  overflow: scroll;
+}
+
+.manager-name {
+  font-size: 3em;
+  margin: 0;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  background-color: $main-blue-color;
+  border-radius: 0.2em;
+  padding: 0.5%;
+  opacity: 0.9;
+}
+
+.manager-info {
+  display: flex;
+  flex-direction: row;
+  background-color: $main-blue-color;
+  border-radius: 0.2em;
+  opacity: 0.9;
+  margin-bottom: 2%;
+  width: 45%;
+  padding: 1%;
+  font-size: 1.3em;
+}
+
+.hotel-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.rooms-avail-todays-date {
+  margin: 0;
+}
+
+.total-revenue-today {
+  margin: 0;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.percent-rooms-occupied {
+  margin: 0;
+}
+
+.find-user {
+  display: flex;
+  flex-direction: column;
+  margin-left: 6%;
+}
+
+.enter-user-name {
+  font-size: 1em;
+  margin-top: 2%;
+  margin-bottom: 4%;
+  border: solid 2px $accent-blue-color;
+  border-radius: 8px;
+  padding-left: 2%;
+}
+
+.submit-user-name {
+  font-size: 1em;
+  border: solid 2px $accent-blue-color;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit-user-name:hover {
+  background-color: $accent-blue-color;
+}
+
+.manager-create-booking {
+  display: flex;
+  flex-direction: column;
+  background-color: $main-blue-color;
+  align-items: center;
+  width: 70%;
+  height: 60%;
+  border-radius: 0.8em;
+  overflow: scroll;
+  opacity: 0.9;
+  padding: 2%;
+}
+
+h5 {
+  margin: 0;
+  font-size: 2em;
+}
+
+
 // user page
 
 .user-page {
@@ -124,7 +233,7 @@ h3 {
   background-image: url(https://images.unsplash.com/photo-1568145675395-66a2eda0c6d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80);
   background-position: center;
   background-size: cover;
-  height: 90%;
+  height: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -135,19 +244,22 @@ h4 {
   font-size: 3em;
   margin: 0;
   margin-bottom: 3%;
-  background-color: #78DBE2;
+  background-color: $main-blue-color;
   border-radius: 0.2em;
   padding: 0.5%;
+  opacity: 0.9;
 }
 
 .create-booking {
   display: flex;
-  justify-content: space-evenly;
-  background-color: #78DBE2;
+  flex-direction: column;
+  background-color: $main-blue-color;
   width: 70%;
-  height: 70%;
+  height: 60%;
   border-radius: 0.8em;
   overflow: scroll;
+  opacity: 0.9;
+  padding: 2%;
 }
 
 .date-selector {
@@ -158,26 +270,99 @@ h4 {
   font-size: 1.3em;
 }
 
+.date-input-btn-holder {
+  display: flex;
+  margin-left: 18%;
+}
+
 .date-input {
   height: 8%;
   width: 50%;
   font-size: 1.2em;
-  // margin-top: 1%;
+  border: solid 2px $accent-blue-color;
+  border-radius: 5px 0 0 5px;
 }
 
 .submit-date-button {
-  height: 9%;
   font-size: 1em;
+  border: solid 2px $accent-blue-color;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.submit-date-button:hover,
+.filter-button:hover,
+.book-room-button:hover {
+  background-color: $accent-blue-color;
 }
 
 .filter-hotel-rooms-dropdown {
   overflow: hidden;
+  height: 8%;
+  margin-top: 2%;
+}
+
+.filter-button {
+  cursor: pointer;
+  border: solid 2px $accent-blue-color;
+  border-radius: 6px;
+  height: 100%;
+  font-size: 1.2em;
 }
 
 .filter-content {
   display: none;
-  // display: flex;
   flex-direction: column;
   position: absolute;
   z-index: 1;
+}
+
+.available-bookings-holder,
+.future-bookings-holder,
+.past-bookings-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.avail-booking-title,
+.future-booking-title,
+.past-booking-title {
+  font-size: 1.6em;
+  margin: 0;
+}
+
+.available-room-info,
+.future-room-info,
+.past-room-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2em;
+  justify-content: center;
+}
+
+.book-room-button {
+  height: 25%;
+  width: 15%;
+  font-size: 1.5em;
+  cursor: pointer;
+  border: solid 2px #2A7BA1;
+  border-radius: 6px;
+  margin-left: 10%;
+  margin-top: 7%;
+}
+
+.room-image {
+  width: 20%;
+  margin-right: 2%;
+}
+
+.trip-date,
+.room-type,
+.room-number,
+.confirmation-code {
+  margin-top: 4%;
+  margin-bottom: 4%;
 }
