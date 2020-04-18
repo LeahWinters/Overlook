@@ -167,6 +167,10 @@ h3 {
   flex-direction: column;
 }
 
+.select-date-message-manager {
+  font-size: 1.3em;
+}
+
 .rooms-avail-todays-date {
   margin: 0;
 }
@@ -205,6 +209,12 @@ h3 {
 
 .submit-user-name:hover {
   background-color: $accent-blue-color;
+}
+
+.filter-hotel-rooms-dropdown {
+  overflow: hidden;
+  height: 8%;
+  margin-top: 2%;
 }
 
 .manager-create-booking {
@@ -263,7 +273,9 @@ h4 {
 }
 
 .date-selector {
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .select-date-message {
@@ -272,7 +284,7 @@ h4 {
 
 .date-input-btn-holder {
   display: flex;
-  margin-left: 18%;
+  margin-left: 6%;
 }
 
 .date-input {
@@ -296,10 +308,10 @@ h4 {
   background-color: $accent-blue-color;
 }
 
-.filter-hotel-rooms-dropdown {
-  overflow: hidden;
-  height: 8%;
+.filter-hotel-rooms-dropdown-user {
+  align-self: center;
   margin-top: 2%;
+  display: flex;
 }
 
 .filter-button {
@@ -341,6 +353,15 @@ h4 {
   flex-direction: column;
   font-size: 1.2em;
   justify-content: center;
+}
+
+.avail-booking-title-user,
+.future-booking-title-user,
+.past-booking-title-user {
+  font-size: 1.4em;
+  margin: 0;
+  margin-top: 2%;
+  align-self: center;
 }
 
 .book-room-button {

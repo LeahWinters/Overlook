@@ -107,32 +107,8 @@ let gatherLoginInfo = () => {
   let userNameInput = $('.user-name-input');
   let passwordInput = $('.password-input');
   if (userNameInput.val() === 'manager' && passwordInput.val() === 'overlook2020') {
-    $('.login-page').html(`<section class='manager-page'><h4 class="welcome-user">Manager Name</h4>
-    <section class="manager-info">
-      <p class="rooms-avail-todays-date">15</p>
-      <p class="total-revenue-today">$3000</p>
-      <p class="percent-rooms-occupied">30%</p>
-    </section>
-    <section class="create-booking">
-      <div class="date-selector">
-        <p class="select-date-message">Please choose the day you'd like to stay with us:</p>
-        <div class="date-input-btn-holder">
-          <input class="date-input" type="number" placeholder="YYYY/MM/DD">
-          <button class="submit-date-button" type="button" role="button">Select Date</button>
-        </div>
-      </div>
-      <div class="filter-hotel-rooms-dropdown">
-        <button class="filter-button"type="button" role="button">Filter you room search <i class="fa fa-caret-down"></i></button>
-        <div class="filter-content">
-          <a href="#">Residential Suite</a>
-          <a href="#">Suite</a>
-          <a href="#">Junior Suite</a>
-          <a href="#">Single Room</a>
-        </div>
-      </div>
-    </section>
-    </section>`);
     changeMainClassToManager();
+    displayManagerPage();
   }
 }
 
@@ -143,10 +119,73 @@ let changeMainClassToManager = () => {
 
 $('.login-button').on('click', gatherLoginInfo);
 
+let displayManagerPage = () => {
+  $('.login-page').html(`<section class='manager-page'>
+    <h4 class="manager-name">Manager Name</h4>
+    <section class="manager-info">
+      <section class="hotel-data">
+        <p class="rooms-avail-todays-date">Number of Rooms Available Today: 15</p>
+        <p class="total-revenue-today">Total Revenue Today: $3000</p>
+        <p class="percent-rooms-occupied">Percentage of Rooms Occupied Today: 30%</p>
+      </section>
+      <section class="find-user">
+        <input type="text" placeholder="Find Guest By Name" class="enter-user-name">
+        <button type="button" role="button" class="submit-user-name">Find Guest</button>
+      </section>
+    </section>
+    <section class="manager-create-booking">
+      <h5>Found Guest Name</h5>
+      <div class="date-selector">
+        <p class="select-date-message-manager">Please choose the day (Guest Name) would like to stay with us:</p>
+        <div class="date-input-btn-holder">
+          <input class="date-input" type="number" placeholder="YYYY/MM/DD">
+          <button class="submit-date-button" type="button" role="button">Select Date</button>
+        </div>
+      </div>
+      <div class="filter-hotel-rooms-dropdown">
+        <button class="filter-button"type="button" role="button">Filter you room search <i class="fa fa-caret-down"></i></button>
+      <div class="filter-content">
+        <a href="#">Residential Suite</a>
+        <a href="#">Suite</a>
+        <a href="#">Junior Suite</a>
+        <a href="#">Single Room</a>
+      </div>
+    </div>
+    <p class="avail-booking-title">All Available Rooms: </p>
+    <section class="available-bookings-holder">
+        <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
+        <div class="available-room-info">
+          <p class="trip-date">Trip Date: 2020/06/24</p>
+          <p class="room-type">Room Style: Residential Suite</p>
+          <p class="room-number">Room Number: 1</p>
+        </div>
+        <button type="button" role="button" class="book-room-button">Book Room</button>
+    </section>
+    <p class="future-booking-title">Your Upcoming Bookings: </p>
+    <section class="future-bookings-holder">
+      <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
+      <div class="future-room-info">
+        <p class="trip-date">Trip Date: 2020/06/24</p>
+        <p class="room-type">Room Style: Residential Suite</p>
+        <p class="room-number">Room Number: 1</p>
+        <p class="confirmation-code">Confirmation Code: </p>
+      </div>
+    </section>
+    <p class="past-booking-title">Your Past Bookings: </p>
+    <section class="past-bookings-holder">
+      <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
+      <div class="past-room-info">
+        <p class="trip-date">Trip Date: 2020/06/24</p>
+        <p class="room-type">Room Style: Residential Suite</p>
+        <p class="room-number">Room Number: 1</p>
+        <p class="confirmation-code">Confirmation Code: </p>
+      </div>
+    </section>
+  </section>
+  </section>
+  </section>`);
+}
+
 // let displayUserPage = () => {
-//
-// }
-//
-// let displayManagerPage = () => {
 //
 // }
