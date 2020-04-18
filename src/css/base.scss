@@ -31,6 +31,7 @@ h1 {
 
 main {
   height: 90%;
+  overflow: scroll;
 }
 
 // login page
@@ -141,7 +142,7 @@ h3 {
 .manager-name {
   font-size: 3em;
   margin: 0;
-  margin-bottom: 3%;
+  margin-bottom: 2%;
   margin-top: 2%;
   background-color: $main-blue-color;
   border-radius: 0.2em;
@@ -151,23 +152,79 @@ h3 {
 
 .manager-info {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: $main-blue-color;
   border-radius: 0.2em;
   opacity: 0.9;
+  margin-bottom: 2%;
+  width: 45%;
+  padding: 1%;
+  font-size: 1.3em;
+}
+
+.hotel-data {
+  display: flex;
+  flex-direction: column;
 }
 
 .rooms-avail-todays-date {
-
+  margin: 0;
 }
 
 .total-revenue-today {
-
+  margin: 0;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .percent-rooms-occupied {
-
+  margin: 0;
 }
+
+.find-user {
+  display: flex;
+  flex-direction: column;
+  margin-left: 6%;
+}
+
+.enter-user-name {
+  font-size: 1em;
+  margin-top: 2%;
+  margin-bottom: 4%;
+  border: solid 2px $accent-blue-color;
+  border-radius: 8px;
+  padding-left: 2%;
+}
+
+.submit-user-name {
+  font-size: 1em;
+  border: solid 2px $accent-blue-color;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit-user-name:hover {
+  background-color: $accent-blue-color;
+}
+
+.manager-create-booking {
+  display: flex;
+  flex-direction: column;
+  background-color: $main-blue-color;
+  align-items: center;
+  width: 70%;
+  height: 60%;
+  border-radius: 0.8em;
+  overflow: scroll;
+  opacity: 0.9;
+  padding: 2%;
+}
+
+h5 {
+  margin: 0;
+  font-size: 2em;
+}
+
 
 // user page
 
@@ -215,6 +272,7 @@ h4 {
 
 .date-input-btn-holder {
   display: flex;
+  margin-left: 18%;
 }
 
 .date-input {
@@ -233,13 +291,15 @@ h4 {
 }
 
 .submit-date-button:hover,
-.filter-button:hover {
+.filter-button:hover,
+.book-room-button:hover {
   background-color: $accent-blue-color;
 }
 
 .filter-hotel-rooms-dropdown {
   overflow: hidden;
   height: 8%;
+  margin-top: 2%;
 }
 
 .filter-button {
@@ -257,41 +317,52 @@ h4 {
   z-index: 1;
 }
 
-.available-bookings-holder {
-  display: flex;
-}
-
-.available-room-info {
+.available-bookings-holder,
+.future-bookings-holder,
+.past-bookings-holder {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
-.future-room-info {
-  display: flex;
-  flex-direction: row;
+.avail-booking-title,
+.future-booking-title,
+.past-booking-title {
+  font-size: 1.6em;
+  margin: 0;
 }
 
+.available-room-info,
+.future-room-info,
 .past-room-info {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  font-size: 1.2em;
+  justify-content: center;
+}
+
+.book-room-button {
+  height: 25%;
+  width: 15%;
+  font-size: 1.5em;
+  cursor: pointer;
+  border: solid 2px #2A7BA1;
+  border-radius: 6px;
+  margin-left: 10%;
+  margin-top: 7%;
 }
 
 .room-image {
   width: 20%;
+  margin-right: 2%;
 }
 
-.trip-date {
-
-}
-
-.room-type {
-
-}
-
-.room-number {
-
-}
-
+.trip-date,
+.room-type,
+.room-number,
 .confirmation-code {
-
+  margin-top: 4%;
+  margin-bottom: 4%;
 }
