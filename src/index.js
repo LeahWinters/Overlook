@@ -33,11 +33,11 @@ Promise.all([userData, roomData, bookingData])
   .then(data => {
     userData = data[0];
     roomData = data[1];
+    console.log(roomData)
     bookingData = data[2];
   })
   .then(() => {
-    hotel = new Hotel(userData, roomData, bookingData);
-    generateAllUsers();
+    hotel = new Hotel(generateAllUsers());
     generateRoomObj();
     generateBookingObj();
   })
@@ -46,10 +46,10 @@ Promise.all([userData, roomData, bookingData])
   });
 
 const generateAllUsers = () => {
-  userData.forEach(user => {
-    user = new User(user);
-    hotel.allGuests.push(user);
-  })
+  const allUsers = userData.map(user => {
+    return new User(user);
+  });
+  return allUsers;
 }
 
 const generateRoomObj = () => {
@@ -113,7 +113,6 @@ const matchRoomsToCorrectBookings = () => {
 //   .catch(error => console.log("There has been an issue with your post"));
 // }
 
-
 const createManager = () => {
   manager = new Manager();
 }
@@ -127,7 +126,6 @@ const gatherLoginInfo = () => {
   const passwordInput = $('.password-input');
   if (userNameInput.val() === 'manager' && passwordInput.val() === 'overlook2020') {
     createManager();
-    // createBooking();
     changeSectionClassToManager();
     displayManagerPage();
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {

@@ -15,7 +15,7 @@ class User {
   }
 
   getTotalAmountSpentOnRooms() {
-    
+
   }
 
 }

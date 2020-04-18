@@ -3,6 +3,18 @@ $main-purple-color: #E3D3ED;
 $accent-purple-color: #BA74E6;
 $accent-blue-color: #2A7BA1;
 $main-blue-color: #78DBE2;
+$white-color: white;
+
+@mixin wholePageSetUp() {
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 0;
+  overflow: scroll;
+}
 
 html {
   width: 100%;
@@ -38,13 +50,14 @@ main {
 
 .login-page {
   background-image: url(https://q-xx.bstatic.com/images/hotel/max1024x768/373/37386056.jpg);
-  background-position: center;
-  background-size: cover;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 0;
+  @include wholePageSetUp();
+  // background-position: center;
+  // background-size: cover;
+  // height: 100%;
+  // display: flex;
+  // justify-content: center;
+  // flex-direction: column;
+  // z-index: 0;
 }
 
 h2 {
@@ -69,7 +82,7 @@ h2 {
 
 .login-form {
   display: flex;
-  background-color: white;
+  background-color: $white-color;
   border-radius: 2%;
   justify-content: center;
   z-index: 1;
@@ -85,17 +98,7 @@ h3 {
   margin-bottom: 2%
 }
 
-.user-name-input {
-  height: 14%;
-  width: 80%;
-  align-self: center;
-  margin: 2%;
-  font-size: 1.5em;
-  border-radius: 7px;
-  border: solid 2px $main-purple-color;
-  padding-left: 1%;
-}
-
+.user-name-input,
 .password-input {
   height: 14%;
   width: 80%;
@@ -136,14 +139,7 @@ h3 {
 .manager-page {
   align-items: center;
   background-image: url(https://images.unsplash.com/photo-1568145675395-66a2eda0c6d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80);
-  background-position: center;
-  background-size: cover;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 0;
-  overflow: scroll;
+  @include wholePageSetUp();
 }
 
 .manager-name {
@@ -248,13 +244,7 @@ h5 {
 .user-page {
   align-items: center;
   background-image: url(https://images.unsplash.com/photo-1568145675395-66a2eda0c6d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80);
-  background-position: center;
-  background-size: cover;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 0;
+  @include wholePageSetUp();
 }
 
 h4 {
