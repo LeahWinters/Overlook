@@ -14,6 +14,10 @@ class User {
 
   }
 
+  getTotalAmountSpentOnRooms() {
+    
+  }
+
 }
 
 export default User;

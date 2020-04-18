@@ -231,10 +231,12 @@ const displayManagerPage = () => {
 
 const displayUserPage = () => {
   $('.login-page').html(`<section class="user-page">
-    <h4 class="welcome-user">Welcome ${user.name}</h4>
+    <h4 class="welcome-user">Welcome ${customer.name}</h4>
     <section class="create-booking">
       <div class="date-selector">
-        <p class="select-date-message">Please selecte the day you'd like to stay with us:</p>
+        <p class="total-spent">You have spent $500 in total at Overlook Hotel Paradise.</p>
+        <p class="appreciation-message">We grately appreciate your business!</p>
+        <p class="select-date-message">Please select the day you'd like to stay with us:</p>
         <div class="date-input-btn-holder">
           <input class="date-input" type="number" placeholder="YYYY/MM/DD">
           <button class="submit-date-button" type="button" role="button">Select Date</button>
