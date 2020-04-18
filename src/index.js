@@ -127,7 +127,7 @@ const gatherLoginInfo = () => {
   const passwordInput = $('.password-input');
   if (userNameInput.val() === 'manager' && passwordInput.val() === 'overlook2020') {
     createManager();
-    createBooking();
+    // createBooking();
     changeSectionClassToManager();
     displayManagerPage();
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
@@ -169,7 +169,7 @@ const displayManagerPage = () => {
       <section class="hotel-data">
         <p class="rooms-avail-todays-date">Number of Rooms Available Today: ${hotel.getNumOfRoomsAvailibleToday()}</p>
         <p class="total-revenue-today">Total Revenue Today: ${hotel.calculateTodaysRevenue()}</p>
-        <p class="percent-rooms-occupied">Percentage of Rooms Occupied Today: 30%</p>
+        <p class="percent-rooms-occupied">Percentage of Rooms Occupied Today: ${hotel.calculateTodayPercentOccupied()}%</p>
       </section>
       <section class="find-user">
         <input type="text" placeholder="Find Guest By Name" class="enter-user-name">

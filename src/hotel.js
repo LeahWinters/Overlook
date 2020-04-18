@@ -7,9 +7,6 @@ class Hotel {
 
   getNumOfRoomsAvailibleToday() {
     const date = new Date();
-    // const year = date.getFullYear();
-    // const month = date.getMonth()+1;
-    // const day = date.getDate();
     const today = `${date.getFullYear()}/${date.getMonth+1}/${date.getDate}`;
     const todaysBookedRooms = this.allCurrentBookings.filter(booking => {
       return booking.date === today;
@@ -39,7 +36,13 @@ class Hotel {
   }
 
   calculateTodayPercentOccupied() {
-
+    const date = new Date();
+    const today = `${date.getFullYear()}/${date.getMonth+1}/${date.getDate}`;
+    const todaysBookedRooms = this.allCurrentBookings.filter(booking => {
+      return booking.date === today;
+    });
+    console.log("today:",todaysBookedRooms.length);
+    return todaysBookedRooms.length / this.allRooms.length;
   }
 }
 
