@@ -222,7 +222,7 @@ const displayManagerPage = () => {
       </div>
     </div>
     <p class="avail-booking-title">All Available Rooms: </p>
-    <section class="available-bookings-holder">
+    <section class="available-bookings-holder-manager">
         <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
         <div class="available-room-info">
           <p class="trip-date">Trip Date: 2020/06/24</p>
@@ -232,7 +232,7 @@ const displayManagerPage = () => {
         <button type="button" role="button" class="book-room-button">Book Room</button>
     </section>
     <p class="future-booking-title">Your Upcoming Bookings: </p>
-    <section class="future-bookings-holder">
+    <section class="future-bookings-holder-manager">
       <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
       <div class="future-room-info">
         <p class="trip-date">Trip Date: 2020/06/24</p>
@@ -242,7 +242,7 @@ const displayManagerPage = () => {
       </div>
     </section>
     <p class="past-booking-title">Your Past Bookings: </p>
-    <section class="past-bookings-holder">
+    <section class="past-bookings-holder-manager">
       <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
       <div class="past-room-info">
         <p class="trip-date">Trip Date: 2020/06/24</p>
