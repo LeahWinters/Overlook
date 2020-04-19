@@ -139,8 +139,45 @@ describe('Hotel', () => {
     }
 
     hotel = new Hotel();
-    hotel.allUsers.push(user1, user2, user3);
+    hotel.allUsers = [user1, user2, user3];
     hotel.allRooms.push(room1, room2, room3, room4, room5, room6);
-    hotel.allCurrentBookings.push(booking1, booking2, booking3, booking4, booking5, booking6)
-  })
+    hotel.allCurrentBookings.push(booking1, booking2, booking3, booking4, booking5, booking6);
+  });
+
+  it('should be a function', () => {
+    expect(Hotel).to.be.a('function');
+  });
+
+  it('should have an array of all the users', () => {
+    expect(hotel.allUsers).to.deep.equal([user1, user2, user3]);
+  });
+
+  it('should have an array of all the rooms in the hotel', () => {
+    expect(hotel.allRooms).to.deep.equal([room1, room2, room3, room4, room5, room6]);
+  });
+
+  it('should have an array of all the bookings made at the hotel', () => {
+    expect(hotel.allCurrentBookings).to.deep.equal([booking1, booking2, booking3, booking4, booking5, booking6]);
+  });
+
+  // it('should be able to get the number ot rooms that are available on todays date', () => {
+  //
+  // });
+
+  // it('should be able to calculate the total revenue from today', () => {
+  //
+  // });
+
+  // it('should be able to calculatethe percentage of rooms occupied today', () => {
+  //
+  // });
+
+  // it('should be able to get a specific users past bookings', () => {
+  //
+  // });
+
+  // it('should be able to get a specific users future bookings', () => {
+  //
+  // });
+
 })
