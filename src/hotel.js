@@ -30,7 +30,7 @@ class Hotel {
     });
     return todaysBookedRooms.reduce((acc, room) => {
       acc += room.costPerNight;
-      return acc;
+      return Math.round(acc);
     }, 0);
   }
 
@@ -60,7 +60,7 @@ class Hotel {
           user.upcomingTrips.push(booking);
         }
     });
-    return {pastTrips: user.pastTrips, upcomingTrips: user.upcomingTrips, totalSpent: totalSpent};
+    return {pastTrips: user.pastTrips, upcomingTrips: user.upcomingTrips, totalSpent: Math.round(totalSpent)};
     console.log('past:', user.pastTrips)
     console.log('upcoming:', user.upcomingTrips)
   }

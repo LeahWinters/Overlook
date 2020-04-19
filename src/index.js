@@ -195,7 +195,7 @@ const displayManagerPage = () => {
     <section class="manager-info">
       <section class="hotel-data">
         <p class="rooms-avail-todays-date">Number of Rooms Available Today: ${hotel.getNumOfRoomsAvailibleToday()}</p>
-        <p class="total-revenue-today">Total Revenue Today: ${hotel.calculateTodaysRevenue()}</p>
+        <p class="total-revenue-today">Total Revenue Today: $${hotel.calculateTodaysRevenue()}</p>
         <p class="percent-rooms-occupied">Percentage of Rooms Occupied Today: ${hotel.calculateTodayPercentOccupied()}%</p>
       </section>
       <section class="find-user">
@@ -222,7 +222,7 @@ const displayManagerPage = () => {
       </div>
     </div>
     <p class="avail-booking-title">All Available Rooms: </p>
-    <section class="available-bookings-holder">
+    <section class="available-bookings-holder-manager">
         <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
         <div class="available-room-info">
           <p class="trip-date">Trip Date: 2020/06/24</p>
@@ -232,7 +232,7 @@ const displayManagerPage = () => {
         <button type="button" role="button" class="book-room-button">Book Room</button>
     </section>
     <p class="future-booking-title">Your Upcoming Bookings: </p>
-    <section class="future-bookings-holder">
+    <section class="future-bookings-holder-manager">
       <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
       <div class="future-room-info">
         <p class="trip-date">Trip Date: 2020/06/24</p>
@@ -242,7 +242,7 @@ const displayManagerPage = () => {
       </div>
     </section>
     <p class="past-booking-title">Your Past Bookings: </p>
-    <section class="past-bookings-holder">
+    <section class="past-bookings-holder-manager">
       <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
       <div class="past-room-info">
         <p class="trip-date">Trip Date: 2020/06/24</p>
@@ -264,7 +264,7 @@ const displayUserPage = () => {
     <h4 class="welcome-user">Welcome ${user.name}</h4>
     <section class="create-booking">
       <div class="date-selector">
-        <p class="total-spent">You have spent ${reservations.totalSpent} in total at Overlook Hotel Paradise.</p>
+        <p class="total-spent">You have spent $${reservations.totalSpent} in total at Overlook Hotel Paradise.</p>
         <p class="appreciation-message">We grately appreciate your business!</p>
         <p class="select-date-message">Please select the day you'd like to stay with us:</p>
         <div class="date-input-btn-holder">

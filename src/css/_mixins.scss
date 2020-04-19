@@ -1,0 +1,22 @@
+@mixin wholePageSetUp() {
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 0;
+  overflow: scroll;
+}
+
+@mixin userAndPassInputs() {
+  height: 67%;
+  width: 86%;
+  align-self: center;
+  margin: 1%;
+  margin-right: 12%;
+  font-size: 16.5em;
+  border-radius: 7px;
+  border: solid 2px #E3D3ED;
+  padding-left: 2%;
+}
