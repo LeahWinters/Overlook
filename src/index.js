@@ -10,7 +10,7 @@ let roomData;
 let bookingData;
 let hotel;
 let manager;
-let customer;
+let user;
 
 userData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
   .then(data => data.json())
@@ -33,7 +33,6 @@ Promise.all([userData, roomData, bookingData])
   .then(data => {
     userData = data[0];
     roomData = data[1];
-    console.log(roomData)
     bookingData = data[2];
   })
   .then(() => {
@@ -47,7 +46,7 @@ Promise.all([userData, roomData, bookingData])
 
 const generateAllUsers = () => {
   const allUsers = userData.map(user => {
-    return new User(user);
+    return new User(user.id, user.name);
   });
   return allUsers;
 }
@@ -76,9 +75,9 @@ const matchRoomsToCorrectBookings = () => {
       if(booking.roomNumber === room.number) {
         let bookingObj = {
           'id': booking.id,
-          'userId': booking.userId,
+          'userID': booking.userID,
           'date': booking.date,
-          'roomNumber': room.roomNumber,
+          'roomNumber': booking.roomNumber,
           'roomType': room.roomType,
           'bidet': room.bidet,
           'bedSize': room.bedSize,
@@ -98,8 +97,8 @@ const matchRoomsToCorrectBookings = () => {
 // const createBooking = () => {
 //   const data = {
 //     'id': `${Date.now()}`,
-//     'userID': 2,
-//     'date': '2020/04/18',
+//     'userID': 1,
+//     'date': '2020/06/18',
 //     'roomNumber': 4
 //   }
 //   fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
@@ -117,8 +116,8 @@ const createManager = () => {
   manager = new Manager();
 }
 
-const createCustomer = (id, name) => {
-  customer = new User(id, name);
+const createUser = (id, name) => {
+  user = new User(id, name);
 }
 
 const gatherLoginInfo = () => {
@@ -131,6 +130,7 @@ const gatherLoginInfo = () => {
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     changeSectionClassToUser();
     displayUserPage();
+
   } else if (!getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     $('.username-error').css('visibility', 'visible');
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() !== 'overlook2020') {
@@ -145,7 +145,7 @@ const getUserIdNumber = (userNameInput) => {
   if (user === undefined) {
     return false;
   } else {
-    createCustomer(user.id, user.name);
+    createUser(user.id, user.name);
     return true;
   }
 }
@@ -159,6 +159,33 @@ const changeSectionClassToUser = () => {
 }
 
 $('.login-button').on('click', gatherLoginInfo);
+
+const displayUserFurtureBookings = (futureReservations) => {
+  return futureReservations.map(bookingObj => {
+    return `<div class="image-holder"> <img class="room-image" src=${getCorrectRoomImage(bookingObj)}  alt="room-image"></div>
+      <div class="future-room-info">
+        <p class="trip-date">${bookingObj.date}</p>
+        <p class="room-type">${bookingObj.roomType}</p>
+        <p class="room-number">${bookingObj.roomNumber}</p>
+        <p class="confirmation-code">dsh839u4uhnwjdq8u23</p>
+      </div>`
+  });
+}
+
+const displayUserPastBookings = (pastReservations) => {
+  return pastReservations.map(bookingObj => {
+    return `<section class="past-holder">
+    <div class="image-holder"><img class="room-image" src=${getCorrectRoomImage(bookingObj)} alt="room-image"></div>
+      <div class="past-room-info">
+        <p class="trip-date">${bookingObj.date}</p>
+        <p class="room-type">${bookingObj.roomType}</p>
+        <p class="room-number">${bookingObj.roomNumber}</p>
+        <p class="confirmation-code">iohjdosijeoiwje29lkda</p>
+      </div>
+    </section>`
+  });
+}
+
 
 const displayManagerPage = () => {
   $('.login-page').html(`<section class='manager-page'>
@@ -228,11 +255,13 @@ const displayManagerPage = () => {
 }
 
 const displayUserPage = () => {
+  let reservations = hotel.getUsersBookings(user.id);
+  console.log(reservations)
   $('.login-page').html(`<section class="user-page">
-    <h4 class="welcome-user">Welcome ${customer.name}</h4>
+    <h4 class="welcome-user">Welcome ${user.name}</h4>
     <section class="create-booking">
       <div class="date-selector">
-        <p class="total-spent">You have spent $500 in total at Overlook Hotel Paradise.</p>
+        <p class="total-spent">You have spent ${reservations.totalSpent} in total at Overlook Hotel Paradise.</p>
         <p class="appreciation-message">We grately appreciate your business!</p>
         <p class="select-date-message">Please select the day you'd like to stay with us:</p>
         <div class="date-input-btn-holder">
@@ -261,24 +290,28 @@ const displayUserPage = () => {
       </section>
       <p class="future-booking-title-user">Your Upcoming Bookings: </p>
       <section class="future-bookings-holder">
-        <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
-        <div class="future-room-info">
-          <p class="trip-date">2020/06/24</p>
-          <p class="room-type">Residential Suite</p>
-          <p class="room-number">1</p>
-          <p class="confirmation-code">Confirmation Code</p>
-        </div>
+        ${displayUserFurtureBookings(reservations.upcomingTrips)}
       </section>
       <p class="past-booking-title-user">Your Past Bookings: </p>
       <section class="past-bookings-holder">
-        <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
-        <div class="past-room-info">
-          <p class="trip-date">2020/06/24</p>
-          <p class="room-type">Residential Suite</p>
-          <p class="room-number">1</p>
-          <p class="confirmation-code">Confirmation Code</p>
-        </div>
+        ${displayUserPastBookings(reservations.pastTrips)}
       </section>
     </section>
     </section>`);
+}
+
+const getCorrectRoomImage = (roomObj) => {
+  const roomType = roomObj.roomType;
+  switch (roomType) {
+  case 'residential suite':
+    return 'https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80';
+  case 'suite':
+    return 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80';
+  case 'single room':
+    return 'https://images.unsplash.com/flagged/photo-1556438758-8d49568ce18e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1953&q=80';
+  case 'junior suite':
+    return 'https://images.unsplash.com/photo-1560067174-e553b3647603?ixlib=rb-1.2.1&auto=format&fit=crop&w=1867&q=80';
+  default:
+    return 'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260';
+  }
 }

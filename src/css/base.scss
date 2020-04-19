@@ -336,7 +336,7 @@ h4 {
 .future-bookings-holder,
 .past-bookings-holder {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   margin-top: 2%;
   margin-bottom: 2%;
@@ -367,6 +367,11 @@ h4 {
   align-self: center;
 }
 
+.past-holder {
+  display: flex;
+  width: 40%;
+}
+
 .book-room-button {
   height: 25%;
   width: 15%;
@@ -378,8 +383,15 @@ h4 {
   margin-top: 7%;
 }
 
+.image-holder {
+  display: flex;
+  flex-direction: column;
+  width: 24%;
+  height: 21%;
+}
+
 .room-image {
-  width: 20%;
+  width: 50%;
   margin-right: 2%;
 }
 
