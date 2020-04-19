@@ -160,15 +160,17 @@ const changeSectionClassToUser = () => {
 
 $('.login-button').on('click', gatherLoginInfo);
 
-const displayUserFurtureBookings = (futureReservations) => {
+const displayUserFutureBookings = (futureReservations) => {
   return futureReservations.map(bookingObj => {
-    return `<div class="image-holder"> <img class="room-image" src=${getCorrectRoomImage(bookingObj)}  alt="room-image"></div>
+    return `<section class="past-holder">
+    <div class="image-holder"> <img class="room-image" src=${getCorrectRoomImage(bookingObj)}  alt="room-image"></div>
       <div class="future-room-info">
-        <p class="trip-date">${bookingObj.date}</p>
-        <p class="room-type">${bookingObj.roomType}</p>
-        <p class="room-number">${bookingObj.roomNumber}</p>
-        <p class="confirmation-code">dsh839u4uhnwjdq8u23</p>
-      </div>`
+        <p class="trip-date">Trip Date: ${bookingObj.date}</p>
+        <p class="room-type">Room Number: ${bookingObj.roomType}</p>
+        <p class="room-number">Room Number: ${bookingObj.roomNumber}</p>
+        <p class="confirmation-code">Confirmation Code: dsh839u4uhnwjdq8u23</p>
+      </div>
+      </section>`
   });
 }
 
@@ -177,10 +179,10 @@ const displayUserPastBookings = (pastReservations) => {
     return `<section class="past-holder">
     <div class="image-holder"><img class="room-image" src=${getCorrectRoomImage(bookingObj)} alt="room-image"></div>
       <div class="past-room-info">
-        <p class="trip-date">${bookingObj.date}</p>
-        <p class="room-type">${bookingObj.roomType}</p>
-        <p class="room-number">${bookingObj.roomNumber}</p>
-        <p class="confirmation-code">iohjdosijeoiwje29lkda</p>
+        <p class="trip-date">Trip Date: ${bookingObj.date}</p>
+        <p class="room-type">Room Style: ${bookingObj.roomType}</p>
+        <p class="room-number">Room Number: ${bookingObj.roomNumber}</p>
+        <p class="confirmation-code">Confirmation Code: iohjdosijeoiwje29lkda</p>
       </div>
     </section>`
   });
@@ -256,7 +258,8 @@ const displayManagerPage = () => {
 
 const displayUserPage = () => {
   let reservations = hotel.getUsersBookings(user.id);
-  console.log(reservations)
+  let upcomingReservations = displayUserFutureBookings(reservations.upcomingTrips);
+  let pastReservations = displayUserPastBookings(reservations.pastTrips);
   $('.login-page').html(`<section class="user-page">
     <h4 class="welcome-user">Welcome ${user.name}</h4>
     <section class="create-booking">
@@ -280,7 +283,7 @@ const displayUserPage = () => {
       </div>
       <p class="avail-booking-title-user">All Available Rooms: </p>
       <section class="available-bookings-holder">
-        <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
+        <img class="room-image" src="" alt="room-image">
         <div class="available-room-info">
           <p class="trip-date">2020/06/24</p>
           <p class="room-type">Residential Suite</p>
@@ -290,11 +293,11 @@ const displayUserPage = () => {
       </section>
       <p class="future-booking-title-user">Your Upcoming Bookings: </p>
       <section class="future-bookings-holder">
-        ${displayUserFurtureBookings(reservations.upcomingTrips)}
+        ${upcomingReservations.join('')}
       </section>
       <p class="past-booking-title-user">Your Past Bookings: </p>
       <section class="past-bookings-holder">
-        ${displayUserPastBookings(reservations.pastTrips)}
+        ${pastReservations.join('')}
       </section>
     </section>
     </section>`);

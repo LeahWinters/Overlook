@@ -335,8 +335,9 @@ h4 {
 .available-bookings-holder,
 .future-bookings-holder,
 .past-bookings-holder {
+  align-items: center;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   margin-top: 2%;
   margin-bottom: 2%;
@@ -369,7 +370,12 @@ h4 {
 
 .past-holder {
   display: flex;
-  width: 40%;
+    flex-direction: row;
+    width: 75%;
+    justify-content: center;
+    align-items: center;
+    height: 21%;
+    margin: 1%;
 }
 
 .book-room-button {
@@ -377,21 +383,21 @@ h4 {
   width: 15%;
   font-size: 1.5em;
   cursor: pointer;
-  border: solid 2px #2A7BA1;
+  border: solid 2px $accent-blue-color;
   border-radius: 6px;
   margin-left: 10%;
   margin-top: 7%;
 }
 
 .image-holder {
-  display: flex;
-  flex-direction: column;
-  width: 24%;
-  height: 21%;
+  width: 31%;
+  height: 95%;
+  margin-right: 5%;
 }
 
 .room-image {
-  width: 50%;
+  width: 250px;
+  height: 200px;
   margin-right: 2%;
 }
 
