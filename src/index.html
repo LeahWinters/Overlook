@@ -15,11 +15,15 @@
         <section class="login-section">
           <form class="login-form" method="post">
             <h3>Please Login</h3>
-            <input class="user-name-input" type="text" name="username"placeholder="Username" required>
+            <label for="user-name">Username Input
+              <input class="user-name-input" type="text" name="username"placeholder="Username" required>
+            </label>
             <p class="username-error">Username is not correct! Please try again</p>
-            <input class="password-input" type="password" name="password"placeholder="Password" required>
+            <label for="password-input">Password Input
+              <input class="password-input" type="password" name="password"placeholder="Password" required>
+            </label>
             <p class="password-error">Password is not correct! Please try again</p>
-            <button class="login-button" type="button" role="button">Login</button>
+            <button class="login-button" type="button" role="button" aria-label="Login Button">Login</button>
           </form>
         </section>
       </section>
