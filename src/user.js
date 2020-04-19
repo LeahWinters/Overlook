@@ -14,6 +14,16 @@ class User {
 
   }
 
+  getTotalAmountSpentOnRooms() {
+
+  }
+
+
+
+  getFurtureBookings() {
+      // if date is in the future, push to upcomingtrips
+  }
+
 }
 
 export default User;

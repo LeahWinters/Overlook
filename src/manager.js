@@ -3,7 +3,7 @@ import Hotel from './hotel';
 
 class Manager extends User {
   constructor() {
-    super();
+    super()
 
   }
   // super.selectRoomToBook();
