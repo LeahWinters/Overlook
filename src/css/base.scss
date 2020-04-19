@@ -8,21 +8,21 @@ html {
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
   height: 100%;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
 header {
-  height: 10%;
   background-color: $main-purple-color;
+  height: 10%;
 }
 
 h1 {
   display: flex;
-  justify-content: center;
   font-size: 3.5em;
+  justify-content: center;
   margin: 0;
   padding-top: 0.7%;
 }
@@ -41,49 +41,44 @@ main {
 
 h2 {
   display: flex;
-  justify-content: center;
   font-size: 4.3em;
-  margin: 0;
-  margin-top:-3%
+  justify-content: center;
+  margin: -3% 0 0;
 }
 
 .login-section {
-  display: flex;
-  justify-content: center;
-  z-index: 1;
-  flex-direction: column;
-  width: 40%;
-  height: 65%;
-  margin: 0;
-  margin-left: 30%;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 65%;
+  justify-content: center;
+  margin: 0 0 0 30%;
+  width: 40%;
 }
 
 .login-form {
-  display: flex;
   background-color: $white-color;
   border-radius: 2%;
-  justify-content: center;
-  z-index: 1;
+  display: flex;
   flex-direction: column;
-  width: 80%;
   height: 80%;
+  justify-content: center;
+  width: 80%;
 }
 
 h3 {
   align-self: center;
   font-size: 2em;
-  margin: 0;
-  margin-bottom: 2%
+  margin: 0 0 2% 0;
 }
 
 label {
-  flex-direction: column;
-  display: flex;
-  height: 22%;
-  margin-left: 9%;
   color: $white-color;
+  display: flex;
+  flex-direction: column;
   font-size: 0.1em;
+  height: 22%;
+  margin: 0 0 0 9%;
 }
 
 .user-name-input,
@@ -92,15 +87,15 @@ label {
 }
 
 .login-button {
-  height: 14%;
-  width: 81%;
   align-self: center;
-  margin: 2%;
-  font-size: 1.5em;
   background-color: $main-purple-color;
   border-radius: 7px;
   border: solid 2px $main-purple-color;
   cursor: pointer;
+  margin: 2%;
+  font-size: 1.5em;
+  height: 14%;
+  width: 81%;
 }
 
 .login-button:hover {
@@ -110,9 +105,9 @@ label {
 
 .username-error,
 .password-error {
-  visibility: hidden;
   color: $alert-color;
   margin: 0;
+  visibility: hidden;
 }
 
 //manager-page
@@ -124,26 +119,24 @@ label {
 }
 
 .manager-name {
-  font-size: 3em;
-  margin: 0;
-  margin-bottom: 2%;
-  margin-top: 2%;
   background-color: $main-blue-color;
   border-radius: 0.2em;
-  padding: 0.5%;
+  font-size: 3em;
+  margin: 2% 0 2% 0;
   opacity: 0.9;
+  padding: 0.5%;
 }
 
 .manager-info {
-  display: flex;
-  flex-direction: row;
   background-color: $main-blue-color;
   border-radius: 0.2em;
-  opacity: 0.9;
-  margin-bottom: 2%;
-  width: 45%;
-  padding: 1%;
+  display: flex;
+  flex-direction: row;
   font-size: 1.3em;
+  margin-bottom: 2%;
+  opacity: 0.9;
+  padding: 1%;
+  width: 45%;
 }
 
 .hotel-data {
@@ -161,9 +154,7 @@ label {
 }
 
 .total-revenue-today {
-  margin: 0;
-  margin-top: 1%;
-  margin-bottom: 1%;
+  margin: 1% 0 1% 0;
 }
 
 .find-user {
@@ -173,19 +164,18 @@ label {
 }
 
 .enter-user-name {
-  font-size: 1em;
-  margin-top: 2%;
-  margin-bottom: 4%;
   border: $accent-blue-border;
   border-radius: 8px;
+  font-size: 1em;
+  margin: 2% 0 4% 0;
   padding-left: 2%;
 }
 
 .submit-user-name {
-  font-size: 1em;
   border: $accent-blue-border;
   border-radius: 8px;
   cursor: pointer;
+  font-size: 1em;
 }
 
 .submit-user-name:hover {
@@ -193,27 +183,27 @@ label {
 }
 
 .filter-hotel-rooms-dropdown {
-  overflow: hidden;
   height: 8%;
   margin-top: 2%;
+  overflow: hidden;
 }
 
 .manager-create-booking {
+  align-items: center;
+  background-color: $main-blue-color;
+  border-radius: 0.8em;
   display: flex;
   flex-direction: column;
-  background-color: $main-blue-color;
-  align-items: center;
-  width: 70%;
   height: 60%;
-  border-radius: 0.8em;
   overflow: scroll;
   opacity: 0.9;
   padding: 2%;
+  width: 70%;
 }
 
 h5 {
-  margin: 0;
   font-size: 2em;
+  margin: 0;
 }
 
 .available-bookings-holder-manager,
@@ -223,11 +213,10 @@ h5 {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin: 2% 0 2% 0;
 }
 
-// user page (manager uses some of the same css properties)
+// user page (manager uses some of the same elements and css properties)
 
 .user-page {
   align-items: center;
@@ -236,37 +225,36 @@ h5 {
 }
 
 h4 {
-  font-size: 3em;
-  margin: 0;
-  margin-bottom: 4%;
   background-color: $main-blue-color;
   border-radius: 0.2em;
-  padding: 0.5%;
+  font-size: 3em;
+  margin: 0 0 4% 0;
   opacity: 0.9;
+  padding: 0.5%;
 }
 
 .create-booking {
+  background-color: $main-blue-color;
+  border-radius: 0.8em;
   display: flex;
   flex-direction: column;
-  background-color: $main-blue-color;
-  width: 70%;
   height: 60%;
-  border-radius: 0.8em;
   overflow: scroll;
   opacity: 0.9;
   padding: 2%;
+  width: 70%;
 }
 
 .total-spent,
 .appreciation-message {
-  margin: 1%;
   font-size: 1.3em;
+  margin: 1%;
 }
 
 .date-selector {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .select-date-message {
@@ -279,18 +267,18 @@ h4 {
 }
 
 .date-input {
-  height: 8%;
-  width: 50%;
-  font-size: 1.2em;
   border: $accent-blue-border;
   border-radius: 5px 0 0 5px;
+  font-size: 1.2em;
+  height: 8%;
+  width: 50%;
 }
 
 .submit-date-button {
-  font-size: 1em;
   border: $accent-blue-border;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
+  font-size: 1em;
 }
 
 .submit-date-button:hover,
@@ -301,16 +289,17 @@ h4 {
 
 .filter-hotel-rooms-dropdown-user {
   align-self: center;
-  margin-top: 2%;
   display: flex;
+  margin-top: 2%;
 }
 
 .filter-button {
-  cursor: pointer;
+
   border: solid 2px $accent-blue-color;
   border-radius: 6px;
-  height: 100%;
+  cursor: pointer;
   font-size: 1.2em;
+  height: 100%;
 }
 
 .filter-content {
@@ -327,8 +316,7 @@ h4 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin: 2% 0 2% 0;
 }
 
 .avail-booking-title,
@@ -350,49 +338,46 @@ h4 {
 .avail-booking-title-user,
 .future-booking-title-user,
 .past-booking-title-user {
-  font-size: 1.4em;
-  margin: 0;
-  margin-top: 2%;
   align-self: center;
+  font-size: 1.4em;
+  margin: 2% 0 0 0;
 }
 
 .past-holder {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  width: 75%;
-  justify-content: center;
-  align-items: center;
   height: 21%;
+  justify-content: center;
   margin: 1%;
+  width: 75%;
 }
 
 .book-room-button {
-  height: 25%;
-  width: 15%;
-  font-size: 1.5em;
-  cursor: pointer;
   border: $accent-blue-border;
   border-radius: 6px;
-  margin-left: 10%;
-  margin-top: 7%;
+  cursor: pointer;
+  font-size: 1.5em;
+  height: 25%;
+  margin: 7% 0 0 10%;
+  width: 15%;
 }
 
 .image-holder {
-  width: 31%;
   height: 95%;
   margin-right: 5%;
+  width: 31%;
 }
 
 .room-image {
-  width: 250px;
   height: 200px;
   margin-right: 2%;
+  width: 250px;
 }
 
 .trip-date,
 .room-type,
 .room-number,
 .confirmation-code {
-  margin-top: 4%;
-  margin-bottom: 4%;
+  margin: 4% 0 4% 0;
 }

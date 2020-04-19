@@ -195,7 +195,7 @@ const displayManagerPage = () => {
     <section class="manager-info">
       <section class="hotel-data">
         <p class="rooms-avail-todays-date">Number of Rooms Available Today: ${hotel.getNumOfRoomsAvailibleToday()}</p>
-        <p class="total-revenue-today">Total Revenue Today: ${hotel.calculateTodaysRevenue()}</p>
+        <p class="total-revenue-today">Total Revenue Today: $${hotel.calculateTodaysRevenue()}</p>
         <p class="percent-rooms-occupied">Percentage of Rooms Occupied Today: ${hotel.calculateTodayPercentOccupied()}%</p>
       </section>
       <section class="find-user">
@@ -264,7 +264,7 @@ const displayUserPage = () => {
     <h4 class="welcome-user">Welcome ${user.name}</h4>
     <section class="create-booking">
       <div class="date-selector">
-        <p class="total-spent">You have spent ${reservations.totalSpent} in total at Overlook Hotel Paradise.</p>
+        <p class="total-spent">You have spent $${reservations.totalSpent} in total at Overlook Hotel Paradise.</p>
         <p class="appreciation-message">We grately appreciate your business!</p>
         <p class="select-date-message">Please select the day you'd like to stay with us:</p>
         <div class="date-input-btn-holder">
