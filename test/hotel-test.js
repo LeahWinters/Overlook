@@ -196,7 +196,6 @@ describe('Hotel', () => {
   it('should be able to get a specific users past bookings', () => {
     hotel.getUsersBookings(1);
     expect(user1.pastTrips).to.deep.equal([booking5]);
-
   });
 
   it('should be able to get a specific users future bookings', () => {
@@ -206,7 +205,6 @@ describe('Hotel', () => {
 
   it('should be able to return the total amount the user has spent at the hotel on bookings', () => {
     hotel.getUsersBookings(1);
-    expect(hotel.getUsersBookings(1).totalSpent).to.equal(1309)
-  })
-
+    expect(hotel.getUsersBookings(1).totalSpent).to.equal(1309);
+  });
 })
