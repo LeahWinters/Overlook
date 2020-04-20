@@ -186,11 +186,11 @@ describe('Hotel', () => {
   });
 
   it('should be able to calculate the total revenue from today', () => {
-    expect(hotel.calculateTodaysRevenue()).to.equal(477.38);
+    expect(hotel.calculateTodaysRevenue()).to.equal(477.38)
   });
 
   it('should be able to calculate the percentage of rooms occupied today', () => {
-    expect(hotel.calculateTodayPercentOccupied()).to.equal(17);
+    expect(hotel.calculateTodayPercentOccupied()).to.equal(17)
   });
 
   it('should be able to get a specific users past bookings', () => {
@@ -206,6 +206,5 @@ describe('Hotel', () => {
   it('should be able to return the total amount the user has spent at the hotel on bookings', () => {
     hotel.getUsersBookings(1);
     expect(hotel.getUsersBookings(1).totalSpent).to.equal(1309);
-  })
-
+  });
 })
