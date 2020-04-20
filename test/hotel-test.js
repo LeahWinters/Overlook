@@ -21,20 +21,11 @@ describe('Hotel', () => {
   let booking6;
 
   beforeEach(() => {
-    user1 = new User({
-      'id': 1,
-      'name': 'Leatha Ullrich'
-    });
+    user1 = new User(1, 'Leatha Ullrich');
 
-    user2 = new User({
-      'id': 2,
-      'name': 'Rocio Schuster'
-    });
+    user2 = new User(2, 'Rocio Schuster');
 
-    user3 = new User({
-      'id': 3,
-      'name': 'Kelvin Schiller'
-    });
+    user3 = new User(3, 'Kelvin Schiller');
 
     room1 = {
       "number": 1,
@@ -94,23 +85,38 @@ describe('Hotel', () => {
       "id": "5fwrgu4i7k55hl6sz",
       "userID": 9,
       "date": "2020/02/04",
-      "roomNumber": 15,
+      "roomNumber": 1,
+      "roomType": "residential suite",
+      "bidet": true,
+      "bedSize": "queen",
+      "numBeds": 1,
+      "costPerNight": 358.4,
       "roomServiceCharges": []
     }
 
     booking2 = {
       "id": "5fwrgu4i7k55hl6t5",
-      "userID": 43,
-      "date": "2020/01/24",
-      "roomNumber": 24,
+      "userID": 1,
+      "date": "2020/04/20",
+      "roomNumber": 2,
+      "roomType": "suite",
+      "bidet": false,
+      "bedSize": "full",
+      "numBeds": 2,
+      "costPerNight": 477.38,
       "roomServiceCharges": []
     }
 
     booking3 = {
       "id": "5fwrgu4i7k55hl6t6",
-      "userID": 13,
-      "date": "2020/01/10",
-      "roomNumber": 12,
+      "userID": 1,
+      "date": "2020/04/25",
+      "roomNumber": 3,
+      "roomType": "single room",
+      "bidet": false,
+      "bedSize": "king",
+      "numBeds": 1,
+      "costPerNight": 491.14,
       "roomServiceCharges": []
     }
 
@@ -118,7 +124,12 @@ describe('Hotel', () => {
       "id": "5fwrgu4i7k55hl6t7",
       "userID": 20,
       "date": "2020/02/16",
-      "roomNumber": 7,
+      "roomNumber": 4,
+      "roomType":"single room",
+      "bidet": false,
+      "bedSize": "queen",
+      "numBeds": 1,
+      "costPerNight": 429.44,
       "roomServiceCharges": []
     }
 
@@ -126,15 +137,25 @@ describe('Hotel', () => {
       "id": "5fwrgu4i7k55hl6t8",
       "userID": 1,
       "date": "2020/02/05",
-      "roomNumber": 12,
+      "roomNumber": 5,
+      "roomType": "single room",
+      "bidet": true,
+      "bedSize": "queen",
+      "numBeds": 2,
+      "costPerNight": 340.17,
       "roomServiceCharges": []
     }
 
     booking6 = {
       "id": "5fwrgu4i7k55hl6t9",
-      "userID": 38,
+      "userID": 6,
       "date": "2020/02/14",
       "roomNumber": 14,
+      "roomType": "junior suite",
+      "bidet": true,
+      "bedSize": "queen",
+      "numBeds": 1,
+      "costPerNight": 397.02,
       "roomServiceCharges": []
     }
 
@@ -160,24 +181,32 @@ describe('Hotel', () => {
     expect(hotel.allCurrentBookings).to.deep.equal([booking1, booking2, booking3, booking4, booking5, booking6]);
   });
 
-  // it('should be able to get the number ot rooms that are available on todays date', () => {
-  //
-  // });
+  it('should be able to get the number of rooms that are available on todays date', () => {
+    expect(hotel.getNumOfRoomsAvailibleToday()).to.equal(5);
+  });
 
-  // it('should be able to calculate the total revenue from today', () => {
-  //
-  // });
+  it('should be able to calculate the total revenue from today', () => {
+    expect(hotel.calculateTodaysRevenue()).to.equal(477.38)
+  });
 
-  // it('should be able to calculatethe percentage of rooms occupied today', () => {
-  //
-  // });
+  it('should be able to calculate the percentage of rooms occupied today', () => {
+    expect(hotel.calculateTodayPercentOccupied()).to.equal(17)
+  });
 
-  // it('should be able to get a specific users past bookings', () => {
-  //
-  // });
+  it('should be able to get a specific users past bookings', () => {
+    hotel.getUsersBookings(1);
+    expect(user1.pastTrips).to.deep.equal([booking5]);
 
-  // it('should be able to get a specific users future bookings', () => {
-  //
-  // });
+  });
+
+  it('should be able to get a specific users future bookings', () => {
+    hotel.getUsersBookings(1);
+    expect(user1.upcomingTrips).to.deep.equal([booking2, booking3]);
+  });
+
+  it('should be able to return the total amount the user has spent at the hotel on bookings', () => {
+    hotel.getUsersBookings(1);
+    expect(hotel.getUsersBookings(1).totalSpent).to.equal(1309)
+  })
 
 })
