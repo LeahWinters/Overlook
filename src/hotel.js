@@ -14,8 +14,8 @@ class Hotel {
     return this.allRooms.length - todaysBookedRooms.length;
   }
 
-  filterRoomsByType() {
-
+  filterRoomsByType(roomType) {
+    // 
   }
 
   filterAvailableRoomsBySelectedDate() {
