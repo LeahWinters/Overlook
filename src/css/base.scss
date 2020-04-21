@@ -2,16 +2,15 @@
 @import '_variables';
 @import '_mixins.scss';
 
-html {
+html,
+body {
   height: 100%;
   width: 100%;
 }
 
 body {
-  height: 100%;
   padding: 0;
   margin: 0;
-  width: 100%;
 }
 
 header {
@@ -46,12 +45,15 @@ h2 {
   margin: -3% 0 0;
 }
 
+.login-section,
+.login-form {
+  @include flexColumn();
+  justify-content: center;
+}
+
 .login-section {
   align-items: center;
-  display: flex;
-  flex-direction: column;
   height: 65%;
-  justify-content: center;
   margin: 0 0 0 30%;
   width: 40%;
 }
@@ -59,10 +61,7 @@ h2 {
 .login-form {
   background-color: $white-color;
   border-radius: 2%;
-  display: flex;
-  flex-direction: column;
   height: 80%;
-  justify-content: center;
   width: 80%;
 }
 
@@ -73,9 +72,8 @@ h3 {
 }
 
 label {
+  @include flexColumn();
   color: $white-color;
-  display: flex;
-  flex-direction: column;
   font-size: 0.1em;
   height: 22%;
   margin: 0 0 0 9%;
@@ -141,8 +139,7 @@ label {
 }
 
 .hotel-data {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn();
 }
 
 .select-date-message-manager {
@@ -159,8 +156,7 @@ label {
 }
 
 .find-user {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn();
   margin-left: 6%;
 }
 
@@ -190,11 +186,10 @@ label {
 }
 
 .manager-create-booking {
+  @include flexColumn();
   align-items: center;
   background-color: $main-blue-color;
   border-radius: 0.8em;
-  display: flex;
-  flex-direction: column;
   height: 60%;
   overflow: scroll;
   opacity: 0.9;
@@ -235,10 +230,9 @@ h4 {
 }
 
 .create-booking {
+  @include flexColumn();
   background-color: $main-blue-color;
   border-radius: 0.8em;
-  display: flex;
-  flex-direction: column;
   height: 60%;
   overflow: scroll;
   opacity: 0.9;
@@ -253,9 +247,8 @@ h4 {
 }
 
 .date-selector {
+  @include flexColumn();
   align-items: center;
-  display: flex;
-  flex-direction: column;
 }
 
 .select-date-message {
@@ -267,8 +260,12 @@ h4 {
   margin-left: 6%;
 }
 
-.date-input {
+.date-input,
+.submit-date-button {
   border: $accent-blue-border;
+}
+
+.date-input {
   border-radius: 5px 0 0 5px;
   font-size: 1.2em;
   height: 8%;
@@ -276,7 +273,6 @@ h4 {
 }
 
 .submit-date-button {
-  border: $accent-blue-border;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   font-size: 1em;
@@ -303,8 +299,7 @@ h4 {
 }
 
 .filter-content {
-  display: none;
-  flex-direction: column;
+  @include flexColumn();
   position: absolute;
   z-index: 1;
 }
@@ -312,9 +307,8 @@ h4 {
 .available-bookings-holder,
 .future-bookings-holder,
 .past-bookings-holder {
+  @include flexColumn();
   align-items: center;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   margin: 2% 0 2% 0;
 }
@@ -335,8 +329,7 @@ h4 {
 .available-room-info,
 .future-room-info,
 .past-room-info {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn();
   font-size: 1.2em;
   justify-content: center;
 }
