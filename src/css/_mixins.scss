@@ -20,3 +20,8 @@
   border: solid 2px #E3D3ED;
   padding-left: 2%;
 }
+
+@mixin flexColumn() {
+  display: flex;
+  flex-direction: column;
+}

@@ -28,8 +28,6 @@ bookingData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings
   .then(data => data.bookings)
   .catch(error => console.log('Theres been an error with fetching bookingData'));
 
-// take the promise and the fetches and put inside a method, and call the method onload. makes it a bit cleaner.
-
 Promise.all([userData, roomData, bookingData])
   .then(data => {
     userData = data[0];
@@ -92,26 +90,6 @@ const matchRoomsToCorrectBookings = () => {
   })
   return bookings;
 }
-
-// post try
-
-// const createBooking = () => {
-//   const data = {
-//     'id': `${Date.now()}`,
-//     'userID': 1,
-//     'date': '2020/06/18',
-//     'roomNumber': 4
-//   }
-//   fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json'
-//       },
-//     body: JSON.stringify(data)
-//   })
-//   .then(res => console.log(res))
-//   .catch(error => console.log("There has been an issue with your post"));
-// }
 
 const createManager = () => {
   manager = new Manager();
@@ -253,11 +231,8 @@ const displayFilteredAvailableBookings = (user, roomType, date) => {
 }
 
 const selectRoomToBook = (event) => {
-  console.log('event', event.target.id)
   let roomId = event.target.id;
-  console.log('roomId', roomId);
   let roomMatch = hotel.allRooms.find(room => room.number == roomId);
-  console.log('matched room', roomMatch)
   return roomMatch;
 }
 
