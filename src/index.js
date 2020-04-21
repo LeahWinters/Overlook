@@ -118,7 +118,7 @@ const createManager = () => {
 
 const createUser = (id, name) => {
   user = new User(id, name);
-  console.log(user);
+  console.log('createUser - post reassign',user);
 }
 
 const gatherLoginInfo = () => {
@@ -130,7 +130,7 @@ const gatherLoginInfo = () => {
     displayManagerPage();
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     changeSectionClassToUser();
-    displayUserPage();
+    displayUserPage(user);
   } else if (!getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     $('.username-error').css('visibility', 'visible');
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() !== 'overlook2020') {
@@ -188,22 +188,24 @@ const displayUserPastBookings = (pastReservations) => {
   });
 }
 
-const displayAvailableBookings = (user) => {
-  const selectedDate = $('.date-input').val;
-  let availableRooms = user.getAvailableRoomsByDate(hotel, selectedDate);
-  availableRooms.forEach(room => {
-    $('.available-bookings-holder').append(`<img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
-      <div class="available-room-info">
-        <p class="room-type">Room Style: ${room.roomType}</p>
-        <p class="room-number">Room Number: ${room.number}</p>
-        <p class="bed-size">Bed Size: ${room.bedSize}</p>
-        <p class="num-beds">Number of Beds: ${room.numBeds}</p>
-      </div>
-      <button type="button" role="button" class="book-room-button">Book Room</button>
-    </section>`)
-  });
-}
-
+// $('.submit-date-button').on('click', displayAvailableBookings());
+//
+// const displayAvailableBookings = () => {
+//   console.log('displayAvailableBookings',user);
+//   const selectedDate = $('.date-input').val;
+//   let availableRooms = user.getAvailableRoomsByDate(hotel, selectedDate);
+//   availableRooms.forEach(room => {
+//     $('.available-bookings-holder').append(`<img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
+//       <div class="available-room-info">
+//         <p class="room-type">Room Style: ${room.roomType}</p>
+//         <p class="room-number">Room Number: ${room.number}</p>
+//         <p class="bed-size">Bed Size: ${room.bedSize}</p>
+//         <p class="num-beds">Number of Beds: ${room.numBeds}</p>
+//       </div>
+//       <button type="button" role="button" class="book-room-button">Book Room</button>
+//     </section>`)
+//   });
+// }
 
 const displayManagerPage = () => {
   $('.login-page').html(`<section class='manager-page'>
@@ -273,6 +275,7 @@ const displayManagerPage = () => {
 }
 
 const displayUserPage = (user) => {
+  console.log('displayUserPage', user)
   let reservations = hotel.getUsersBookings(user.id);
   let upcomingReservations = displayUserFutureBookings(reservations.upcomingTrips);
   let pastReservations = displayUserPastBookings(reservations.pastTrips);
@@ -311,8 +314,6 @@ const displayUserPage = (user) => {
     </section>
     </section>`);
 }
-
-$('.submit-date-button').on('click', displayAvailableBookings());
 
 const getCorrectRoomImage = (roomObj) => {
   const roomType = roomObj.roomType;

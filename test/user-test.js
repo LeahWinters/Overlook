@@ -7,6 +7,12 @@ describe('User', () => {
   let user1;
   let user2;
   let user3;
+  let room1;
+  let room2;
+  let room3;
+  let room4;
+  let room5;
+  let room6;
   let booking1;
   let booking2;
   let booking3;
@@ -20,6 +26,60 @@ describe('User', () => {
     user2 = new User(2, 'Rocio Schuster');
 
     user3 = new User(3, 'Kelvin Schiller');
+
+    room1 = {
+      "number": 1,
+      "roomType": "residential suite",
+      "bidet": true,
+      "bedSize": "queen",
+      "numBeds": 1,
+      "costPerNight": 358.4
+    }
+
+    room2 = {
+      "number": 2,
+      "roomType": "suite",
+      "bidet": false,
+      "bedSize": "full",
+      "numBeds": 2,
+      "costPerNight": 477.38
+    }
+
+    room3 = {
+      "number": 3,
+      "roomType": "single room",
+      "bidet": false,
+      "bedSize": "king",
+      "numBeds": 1,
+      "costPerNight": 491.14
+    }
+
+    room4 = {
+      "number": 4,
+      "roomType":"single room",
+      "bidet": false,
+      "bedSize": "queen",
+      "numBeds": 1,
+      "costPerNight": 429.44
+    }
+
+    room5 = {
+      "number": 5,
+      "roomType": "single room",
+      "bidet": true,
+      "bedSize": "queen",
+      "numBeds": 2,
+      "costPerNight": 340.17
+    }
+
+    room6 = {
+      "number": 6,
+      "roomType": "junior suite",
+      "bidet": true,
+      "bedSize": "queen",
+      "numBeds": 1,
+      "costPerNight": 397.02
+    }
 
     booking1 = {
       "id": "5fwrgu4i7k55hl6sz",
@@ -101,6 +161,7 @@ describe('User', () => {
 
     hotel = new Hotel();
     hotel.allUsers = [user1, user2, user3];
+    hotel.allRooms.push(room1, room2, room3, room4, room5, room6);
     hotel.allCurrentBookings.push(booking1, booking2, booking3, booking4, booking5, booking6);
   });
 
@@ -124,5 +185,42 @@ describe('User', () => {
   it('should be able to get all of their upcoming trips', () => {
     hotel.getUsersBookings(1);
     expect(user1.upcomingTrips).to.deep.equal([booking2, booking3]);
+  });
+
+  it('should be able to get all available bookings based on an entered date', () => {
+    expect(user1.getAvailableRoomsByDate(hotel, '2020/04/20')).to.deep.equal([{"number": 1,
+    "roomType": "residential suite",
+    "bidet": true,
+    "bedSize": "queen",
+    "numBeds": 1,
+    "costPerNight": 358.4}, {
+      "number": 3,
+      "roomType": "single room",
+      "bidet": false,
+      "bedSize": "king",
+      "numBeds": 1,
+      "costPerNight": 491.14
+    }, room4 = {
+      "number": 4,
+      "roomType":"single room",
+      "bidet": false,
+      "bedSize": "queen",
+      "numBeds": 1,
+      "costPerNight": 429.44
+    }, {
+      "number": 5,
+      "roomType": "single room",
+      "bidet": true,
+      "bedSize": "queen",
+      "numBeds": 2,
+      "costPerNight": 340.17
+    }, room6 = {
+      "number": 6,
+      "roomType": "junior suite",
+      "bidet": true,
+      "bedSize": "queen",
+      "numBeds": 1,
+      "costPerNight": 397.02
+    }]);
   });
 })
