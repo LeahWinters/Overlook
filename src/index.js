@@ -11,6 +11,7 @@ let bookingData;
 let hotel;
 let manager;
 let user;
+let date;
 
 userData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
   .then(data => data.json())
@@ -190,10 +191,10 @@ const displayUserPastBookings = (pastReservations) => {
 
 const displayAvailableBookings = (user) => {
   if(event.target.classList.contains("submit-date-button")) {
-    const selectedDate = $('.date-input').val();
-    let allAvailableRooms = user.getAvailableRoomsByDate(hotel, selectedDate);
+    date = $('.date-input').val();
+    let allAvailableRooms = user.getAvailableRoomsByDate(hotel, date);
     if (allAvailableRooms.length === 0) {
-      $('.available-bookings-holder').html(`<p>We are sorry, but there are rooms available on that date. Please try selecting another day!</p>`)
+      $('.available-bookings-holder').html(`<p>We are sorry, but there are no rooms available on that date. Please try selecting another date!</p>`)
     } else {
       allAvailableRooms.forEach(room => {
         $('.available-bookings-holder').append(`<div class="avail-hotel-info"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
@@ -203,7 +204,7 @@ const displayAvailableBookings = (user) => {
           <p class="bed-size">Bed Size: ${room.bedSize}</p>
           <p class="num-beds">Number of Beds: ${room.numBeds}</p>
         </div>
-          <button type="button" role="button" class="book-room-button">Book Room</button>
+          <button type="button" role="button" id="${room.number}" class="book-room-button">Book Room</button>
         </div>
         </section>`)
       });
@@ -213,7 +214,7 @@ const displayAvailableBookings = (user) => {
 
 const getFilterInputToDisplay = () => {
   let selectedFilterValue = $('.filter-button').val();
-  const date = $('.date-input').val();
+  date = $('.date-input').val();
   let roomType;
   if (selectedFilterValue === 'residential suite') {
     roomType = 'residential suite';
@@ -234,7 +235,7 @@ const displayFilteredAvailableBookings = (user, roomType, date) => {
   $('.available-bookings-holder').empty();
   let allFilteredRooms = user.filterRoomsByType(roomType, hotel, date);
   if (allFilteredRooms.length === 0) {
-    $('.available-bookings-holder').html(`<p>We are sorry to inform you that there are not any available bookings on the filter you slected, please try another one!</p>`);
+    $('.available-bookings-holder').html(`<p>We are sorry to inform you that there are not any available bookings on the filter you selected. Please try another one!</p>`);
   } else {
     allFilteredRooms.forEach(room => {
       $('.available-bookings-holder').append(`<div class="avail-hotel-info"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
@@ -244,11 +245,54 @@ const displayFilteredAvailableBookings = (user, roomType, date) => {
         <p class="bed-size">Bed Size: ${room.bedSize}</p>
         <p class="num-beds">Number of Beds: ${room.numBeds}</p>
       </div>
-        <button type="button" role="button" class="book-room-button">Book Room</button>
+        <button type="button" role="button" id="${room.number}" class="book-room-button">Book Room</button>
       </div>
       </section>`)
     });
   }
+}
+
+const selectRoomToBook = (event) => {
+  console.log('event', event.target.id)
+  let roomId = event.target.id;
+  console.log('roomId', roomId);
+  let roomMatch = hotel.allRooms.find(room => room.number == roomId);
+  console.log('matched room', roomMatch)
+  return roomMatch;
+}
+
+const prepRoomToBook = (event) => {
+  let room = selectRoomToBook(event);
+  let userIdNum = user.id;
+  let roomNum = room.number;
+  let roomToPost = {
+    'userID': userIdNum,
+    'date': date,
+    'roomNumber': roomNum
+  }
+  return roomToPost;
+}
+
+const bookSelectedRoom = (event) => {
+  let dataToPost = prepRoomToBook(event);
+  fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(
+        dataToPost
+      )
+    })
+    .then(response => response.json())
+    .then(data => console.log('Success:', data))
+    .catch(err => console.log('there has been an error with your post', error));
+    displayReservationConfirmation(user, date);
+}
+
+const displayReservationConfirmation = (user, date) => {
+  $('.available-bookings-holder').empty();
+  $('.available-bookings-holder').html(`<p class="confirmation">Thank you ${user.name} for booking with us! Your trip is on ${date}!</p>`);
 }
 
 
@@ -258,6 +302,9 @@ const bindUserEventListener = () => {
   });
   $('.filter-button').on('change', function() {
     getFilterInputToDisplay();
+  });
+  $('.available-bookings-holder').on('click', function() {
+    bookSelectedRoom(event);
   })
 }
 
