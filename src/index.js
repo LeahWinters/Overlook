@@ -130,7 +130,7 @@ const gatherLoginInfo = () => {
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     changeSectionClassToUser();
     displayUserPage(user);
-    bindEventListener();
+    bindUserEventListener();
   } else if (!getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     $('.username-error').css('visibility', 'visible');
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() !== 'overlook2020') {
@@ -189,11 +189,54 @@ const displayUserPastBookings = (pastReservations) => {
 }
 
 const displayAvailableBookings = (user) => {
-  console.log('click')
   if(event.target.classList.contains("submit-date-button")) {
     const selectedDate = $('.date-input').val();
     let allAvailableRooms = user.getAvailableRoomsByDate(hotel, selectedDate);
-    allAvailableRooms.forEach(room => {
+    if (allAvailableRooms.length === 0) {
+      $('.available-bookings-holder').html(`<p>We are sorry, but there are rooms available on that date. Please try selecting another day!</p>`)
+    } else {
+      allAvailableRooms.forEach(room => {
+        $('.available-bookings-holder').append(`<div class="avail-hotel-info"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
+        <div class="available-room-info">
+          <p class="room-type">Room Style: ${room.roomType}</p>
+          <p class="room-number">Room Number: ${room.number}</p>
+          <p class="bed-size">Bed Size: ${room.bedSize}</p>
+          <p class="num-beds">Number of Beds: ${room.numBeds}</p>
+        </div>
+          <button type="button" role="button" class="book-room-button">Book Room</button>
+        </div>
+        </section>`)
+      });
+    }
+  }
+}
+
+const getFilterInputToDisplay = () => {
+  let selectedFilterValue = $('.filter-button').val();
+  const date = $('.date-input').val();
+  let roomType;
+  if (selectedFilterValue === 'residential suite') {
+    roomType = 'residential suite';
+    displayFilteredAvailableBookings(user, roomType, date);
+  } else if (selectedFilterValue === 'suite') {
+    roomType = 'suite';
+    displayFilteredAvailableBookings(user, roomType, date);
+  } else if (selectedFilterValue === 'junior suite') {
+    roomType = 'junior suite';
+    displayFilteredAvailableBookings(user, roomType, date);
+  } else if (selectedFilterValue === 'single room') {
+    roomType = 'single room';
+    displayFilteredAvailableBookings(user, roomType, date);
+  }
+}
+
+const displayFilteredAvailableBookings = (user, roomType, date) => {
+  $('.available-bookings-holder').empty();
+  let allFilteredRooms = user.filterRoomsByType(roomType, hotel, date);
+  if (allFilteredRooms.length === 0) {
+    $('.available-bookings-holder').html(`<p>We are sorry to inform you that there are not any available bookings on the filter you slected, please try another one!</p>`);
+  } else {
+    allFilteredRooms.forEach(room => {
       $('.available-bookings-holder').append(`<div class="avail-hotel-info"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
       <div class="available-room-info">
         <p class="room-type">Room Style: ${room.roomType}</p>
@@ -208,10 +251,14 @@ const displayAvailableBookings = (user) => {
   }
 }
 
-const bindEventListener = () => {
+
+const bindUserEventListener = () => {
   $('.date-input-btn-holder').on('click', '.submit-date-button', null, function() {
     displayAvailableBookings(user);
   });
+  $('.filter-button').on('change', function() {
+    getFilterInputToDisplay();
+  })
 }
 
 const displayManagerPage = () => {
@@ -299,11 +346,11 @@ const displayUserPage = (user) => {
       </div>
       <div class="filter-hotel-rooms-dropdown-user">
         <select value="Filter your room search" class="filter-button">
-          <option disabled="disabled" value="Filter your room search" selected>Filter your room search</option>
-          <option value="Residential Suite">Residential Suite</option>
-          <option value="Suite">Suite</option>
-          <option value="Junior Suite">Junior Suite</option>
-          <option value="Single Room">Single Room</option>
+          <option value="filter by room type" disabled selected>Filter available rooms by room style</option>
+          <option value="residential suite">Residential Suite</option>
+          <option value="suite">Suite</option>
+          <option value="junior suite">Junior Suite</option>
+          <option value="single room">Single Room</option>
         </select>
       </div>
       <p class="avail-booking-title-user">All Available Rooms: </p>
