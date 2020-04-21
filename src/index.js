@@ -118,6 +118,7 @@ const createManager = () => {
 
 const createUser = (id, name) => {
   user = new User(id, name);
+  console.log(user);
 }
 
 const gatherLoginInfo = () => {
@@ -130,7 +131,6 @@ const gatherLoginInfo = () => {
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     changeSectionClassToUser();
     displayUserPage();
-
   } else if (!getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     $('.username-error').css('visibility', 'visible');
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() !== 'overlook2020') {
@@ -185,6 +185,22 @@ const displayUserPastBookings = (pastReservations) => {
         <p class="confirmation-code">Confirmation Code: iohjdosijeoiwje29lkda</p>
       </div>
     </section>`
+  });
+}
+
+const displayAvailableBookings = (user) => {
+  const selectedDate = $('.date-input').val;
+  let availableRooms = user.getAvailableRoomsByDate(hotel, selectedDate);
+  availableRooms.forEach(room => {
+    $('.available-bookings-holder').append(`<img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
+      <div class="available-room-info">
+        <p class="room-type">Room Style: ${room.roomType}</p>
+        <p class="room-number">Room Number: ${room.number}</p>
+        <p class="bed-size">Bed Size: ${room.bedSize}</p>
+        <p class="num-beds">Number of Beds: ${room.numBeds}</p>
+      </div>
+      <button type="button" role="button" class="book-room-button">Book Room</button>
+    </section>`)
   });
 }
 
@@ -256,7 +272,7 @@ const displayManagerPage = () => {
   </section>`);
 }
 
-const displayUserPage = () => {
+const displayUserPage = (user) => {
   let reservations = hotel.getUsersBookings(user.id);
   let upcomingReservations = displayUserFutureBookings(reservations.upcomingTrips);
   let pastReservations = displayUserPastBookings(reservations.pastTrips);
@@ -268,7 +284,7 @@ const displayUserPage = () => {
         <p class="appreciation-message">We grately appreciate your business!</p>
         <p class="select-date-message">Please select the day you'd like to stay with us:</p>
         <div class="date-input-btn-holder">
-          <input class="date-input" type="number" placeholder="YYYY/MM/DD">
+          <input class="date-input" type="text" placeholder="YYYY/MM/DD">
           <button class="submit-date-button" type="button" role="button">Select Date</button>
         </div>
       </div>
@@ -283,13 +299,6 @@ const displayUserPage = () => {
       </div>
       <p class="avail-booking-title-user">All Available Rooms: </p>
       <section class="available-bookings-holder">
-        <img class="room-image" src="" alt="room-image">
-        <div class="available-room-info">
-          <p class="trip-date">2020/06/24</p>
-          <p class="room-type">Residential Suite</p>
-          <p class="room-number">1</p>
-        </div>
-        <button type="button" role="button" class="book-room-button">Book Room</button>
       </section>
       <p class="future-booking-title-user">Your Upcoming Bookings: </p>
       <section class="future-bookings-holder">
@@ -302,6 +311,8 @@ const displayUserPage = () => {
     </section>
     </section>`);
 }
+
+$('.submit-date-button').on('click', displayAvailableBookings());
 
 const getCorrectRoomImage = (roomObj) => {
   const roomType = roomObj.roomType;
