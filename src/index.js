@@ -118,7 +118,6 @@ const createManager = () => {
 
 const createUser = (id, name) => {
   user = new User(id, name);
-  console.log('createUser - post reassign',user);
 }
 
 const gatherLoginInfo = () => {
@@ -131,6 +130,7 @@ const gatherLoginInfo = () => {
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     changeSectionClassToUser();
     displayUserPage(user);
+    bindEventListener();
   } else if (!getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     $('.username-error').css('visibility', 'visible');
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() !== 'overlook2020') {
@@ -188,24 +188,31 @@ const displayUserPastBookings = (pastReservations) => {
   });
 }
 
-// $('.submit-date-button').on('click', displayAvailableBookings());
-//
-// const displayAvailableBookings = () => {
-//   console.log('displayAvailableBookings',user);
-//   const selectedDate = $('.date-input').val;
-//   let availableRooms = user.getAvailableRoomsByDate(hotel, selectedDate);
-//   availableRooms.forEach(room => {
-//     $('.available-bookings-holder').append(`<img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
-//       <div class="available-room-info">
-//         <p class="room-type">Room Style: ${room.roomType}</p>
-//         <p class="room-number">Room Number: ${room.number}</p>
-//         <p class="bed-size">Bed Size: ${room.bedSize}</p>
-//         <p class="num-beds">Number of Beds: ${room.numBeds}</p>
-//       </div>
-//       <button type="button" role="button" class="book-room-button">Book Room</button>
-//     </section>`)
-//   });
-// }
+const displayAvailableBookings = (user) => {
+  console.log('click')
+  if(event.target.classList.contains("submit-date-button")) {
+    const selectedDate = $('.date-input').val();
+    let allAvailableRooms = user.getAvailableRoomsByDate(hotel, selectedDate);
+    allAvailableRooms.forEach(room => {
+      $('.available-bookings-holder').append(`<div class="avail-hotel-info"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
+      <div class="available-room-info">
+        <p class="room-type">Room Style: ${room.roomType}</p>
+        <p class="room-number">Room Number: ${room.number}</p>
+        <p class="bed-size">Bed Size: ${room.bedSize}</p>
+        <p class="num-beds">Number of Beds: ${room.numBeds}</p>
+      </div>
+        <button type="button" role="button" class="book-room-button">Book Room</button>
+      </div>
+      </section>`)
+    });
+  }
+}
+
+const bindEventListener = () => {
+  $('.date-input-btn-holder').on('click', '.submit-date-button', null, function() {
+    displayAvailableBookings(user);
+  });
+}
 
 const displayManagerPage = () => {
   $('.login-page').html(`<section class='manager-page'>
@@ -275,7 +282,6 @@ const displayManagerPage = () => {
 }
 
 const displayUserPage = (user) => {
-  console.log('displayUserPage', user)
   let reservations = hotel.getUsersBookings(user.id);
   let upcomingReservations = displayUserFutureBookings(reservations.upcomingTrips);
   let pastReservations = displayUserPastBookings(reservations.pastTrips);
@@ -292,13 +298,13 @@ const displayUserPage = (user) => {
         </div>
       </div>
       <div class="filter-hotel-rooms-dropdown-user">
-        <button class="filter-button"type="button" role="button">Filter you room search <i class="fa fa-caret-down"></i></button>
-        <div class="filter-content">
-          <a href="#">Residential Suite</a>
-          <a href="#">Suite</a>
-          <a href="#">Junior Suite</a>
-          <a href="#">Single Room</a>
-        </div>
+        <select value="Filter your room search" class="filter-button">
+          <option disabled="disabled" value="Filter your room search" selected>Filter your room search</option>
+          <option value="Residential Suite">Residential Suite</option>
+          <option value="Suite">Suite</option>
+          <option value="Junior Suite">Junior Suite</option>
+          <option value="Single Room">Single Room</option>
+        </select>
       </div>
       <p class="avail-booking-title-user">All Available Rooms: </p>
       <section class="available-bookings-holder">

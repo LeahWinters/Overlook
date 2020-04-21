@@ -14,13 +14,11 @@ class Hotel {
     return this.allRooms.length - todaysBookedRooms.length;
   }
 
-  filterRoomsByType(roomType) {
-    // 
-  }
 
-  filterAvailableRoomsBySelectedDate() {
 
-  }
+  // filterAvailableRoomsBySelectedDate() {
+  //
+  // }
 
   calculateTodaysRevenue() {
     const date = new Date();

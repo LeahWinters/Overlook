@@ -23,6 +23,14 @@ class User {
     });
     return availableRooms;
   }
+
+  filterRoomsByType(roomType, hotel, date) {
+    const availableRooms = this.getAvailableRoomsByDate(hotel, date);
+    const filteredRooms = availableRooms.filter(room => {
+      return room.roomType === roomType;
+    });
+    return filteredRooms;
+  }
 }
 
 export default User;
