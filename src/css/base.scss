@@ -107,6 +107,7 @@ label {
 .password-error {
   color: $alert-color;
   margin: 0;
+  padding-left: 20%;
   visibility: hidden;
 }
 
@@ -294,7 +295,6 @@ h4 {
 }
 
 .filter-button {
-
   border: solid 2px $accent-blue-color;
   border-radius: 6px;
   cursor: pointer;
@@ -317,6 +317,12 @@ h4 {
   flex-direction: column;
   justify-content: center;
   margin: 2% 0 2% 0;
+}
+
+.avail-hotel-info {
+  display: flex;
+  margin: 1.5%;
+  width: 63%;
 }
 
 .avail-booking-title,
@@ -359,7 +365,7 @@ h4 {
   cursor: pointer;
   font-size: 1.5em;
   height: 25%;
-  margin: 7% 0 0 10%;
+  margin: 11% 0 0 13%;
   width: 15%;
 }
 
@@ -378,6 +384,8 @@ h4 {
 .trip-date,
 .room-type,
 .room-number,
-.confirmation-code {
+.confirmation-code,
+.bed-size,
+.num-beds {
   margin: 4% 0 4% 0;
 }

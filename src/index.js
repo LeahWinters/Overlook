@@ -129,8 +129,8 @@ const gatherLoginInfo = () => {
     displayManagerPage();
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     changeSectionClassToUser();
-    displayUserPage();
-
+    displayUserPage(user);
+    bindUserEventListener();
   } else if (!getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     $('.username-error').css('visibility', 'visible');
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() !== 'overlook2020') {
@@ -188,6 +188,78 @@ const displayUserPastBookings = (pastReservations) => {
   });
 }
 
+const displayAvailableBookings = (user) => {
+  if(event.target.classList.contains("submit-date-button")) {
+    const selectedDate = $('.date-input').val();
+    let allAvailableRooms = user.getAvailableRoomsByDate(hotel, selectedDate);
+    if (allAvailableRooms.length === 0) {
+      $('.available-bookings-holder').html(`<p>We are sorry, but there are rooms available on that date. Please try selecting another day!</p>`)
+    } else {
+      allAvailableRooms.forEach(room => {
+        $('.available-bookings-holder').append(`<div class="avail-hotel-info"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
+        <div class="available-room-info">
+          <p class="room-type">Room Style: ${room.roomType}</p>
+          <p class="room-number">Room Number: ${room.number}</p>
+          <p class="bed-size">Bed Size: ${room.bedSize}</p>
+          <p class="num-beds">Number of Beds: ${room.numBeds}</p>
+        </div>
+          <button type="button" role="button" class="book-room-button">Book Room</button>
+        </div>
+        </section>`)
+      });
+    }
+  }
+}
+
+const getFilterInputToDisplay = () => {
+  let selectedFilterValue = $('.filter-button').val();
+  const date = $('.date-input').val();
+  let roomType;
+  if (selectedFilterValue === 'residential suite') {
+    roomType = 'residential suite';
+    displayFilteredAvailableBookings(user, roomType, date);
+  } else if (selectedFilterValue === 'suite') {
+    roomType = 'suite';
+    displayFilteredAvailableBookings(user, roomType, date);
+  } else if (selectedFilterValue === 'junior suite') {
+    roomType = 'junior suite';
+    displayFilteredAvailableBookings(user, roomType, date);
+  } else if (selectedFilterValue === 'single room') {
+    roomType = 'single room';
+    displayFilteredAvailableBookings(user, roomType, date);
+  }
+}
+
+const displayFilteredAvailableBookings = (user, roomType, date) => {
+  $('.available-bookings-holder').empty();
+  let allFilteredRooms = user.filterRoomsByType(roomType, hotel, date);
+  if (allFilteredRooms.length === 0) {
+    $('.available-bookings-holder').html(`<p>We are sorry to inform you that there are not any available bookings on the filter you slected, please try another one!</p>`);
+  } else {
+    allFilteredRooms.forEach(room => {
+      $('.available-bookings-holder').append(`<div class="avail-hotel-info"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
+      <div class="available-room-info">
+        <p class="room-type">Room Style: ${room.roomType}</p>
+        <p class="room-number">Room Number: ${room.number}</p>
+        <p class="bed-size">Bed Size: ${room.bedSize}</p>
+        <p class="num-beds">Number of Beds: ${room.numBeds}</p>
+      </div>
+        <button type="button" role="button" class="book-room-button">Book Room</button>
+      </div>
+      </section>`)
+    });
+  }
+}
+
+
+const bindUserEventListener = () => {
+  $('.date-input-btn-holder').on('click', '.submit-date-button', null, function() {
+    displayAvailableBookings(user);
+  });
+  $('.filter-button').on('change', function() {
+    getFilterInputToDisplay();
+  })
+}
 
 const displayManagerPage = () => {
   $('.login-page').html(`<section class='manager-page'>
@@ -256,7 +328,7 @@ const displayManagerPage = () => {
   </section>`);
 }
 
-const displayUserPage = () => {
+const displayUserPage = (user) => {
   let reservations = hotel.getUsersBookings(user.id);
   let upcomingReservations = displayUserFutureBookings(reservations.upcomingTrips);
   let pastReservations = displayUserPastBookings(reservations.pastTrips);
@@ -268,28 +340,21 @@ const displayUserPage = () => {
         <p class="appreciation-message">We grately appreciate your business!</p>
         <p class="select-date-message">Please select the day you'd like to stay with us:</p>
         <div class="date-input-btn-holder">
-          <input class="date-input" type="number" placeholder="YYYY/MM/DD">
+          <input class="date-input" type="text" placeholder="YYYY/MM/DD">
           <button class="submit-date-button" type="button" role="button">Select Date</button>
         </div>
       </div>
       <div class="filter-hotel-rooms-dropdown-user">
-        <button class="filter-button"type="button" role="button">Filter you room search <i class="fa fa-caret-down"></i></button>
-        <div class="filter-content">
-          <a href="#">Residential Suite</a>
-          <a href="#">Suite</a>
-          <a href="#">Junior Suite</a>
-          <a href="#">Single Room</a>
-        </div>
+        <select value="Filter your room search" class="filter-button">
+          <option value="filter by room type" disabled selected>Filter available rooms by room style</option>
+          <option value="residential suite">Residential Suite</option>
+          <option value="suite">Suite</option>
+          <option value="junior suite">Junior Suite</option>
+          <option value="single room">Single Room</option>
+        </select>
       </div>
       <p class="avail-booking-title-user">All Available Rooms: </p>
       <section class="available-bookings-holder">
-        <img class="room-image" src="" alt="room-image">
-        <div class="available-room-info">
-          <p class="trip-date">2020/06/24</p>
-          <p class="room-type">Residential Suite</p>
-          <p class="room-number">1</p>
-        </div>
-        <button type="button" role="button" class="book-room-button">Book Room</button>
       </section>
       <p class="future-booking-title-user">Your Upcoming Bookings: </p>
       <section class="future-bookings-holder">
