@@ -9,7 +9,6 @@ class Manager extends User {
   // super.selectRoomToBook();
 
 
-
   searchUserByName() {
 
   }
@@ -18,9 +17,9 @@ class Manager extends User {
 
   }
 
-  getTotalUserSpending() {
-
-  }
+  // getTotalUserSpending() {
+  //
+  // }
 }
 
 

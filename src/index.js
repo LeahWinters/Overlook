@@ -300,19 +300,21 @@ const displayManagerPage = () => {
     <section class="manager-create-booking">
       <h5>Found Guest Name</h5>
       <div class="date-selector">
+      <p class="total-spent">Users has spent $ in total at Overlook Hotel Paradise.</p>
         <p class="select-date-message-manager">Please choose the day (Guest Name) would like to stay with us:</p>
         <div class="date-input-btn-holder">
-          <input class="date-input" type="number" placeholder="YYYY/MM/DD">
+          <input class="date-input" type="text" placeholder="YYYY/MM/DD">
           <button class="submit-date-button" type="button" role="button">Select Date</button>
         </div>
       </div>
-      <div class="filter-hotel-rooms-dropdown">
-        <button class="filter-button"type="button" role="button">Filter you room search <i class="fa fa-caret-down"></i></button>
-      <div class="filter-content">
-        <a href="#">Residential Suite</a>
-        <a href="#">Suite</a>
-        <a href="#">Junior Suite</a>
-        <a href="#">Single Room</a>
+      <div class="filter-hotel-rooms-dropdown-manager">
+      <select value="Filter your room search" class="filter-button">
+        <option value="filter by room type" disabled selected>Filter available rooms by room style</option>
+        <option value="residential suite">Residential Suite</option>
+        <option value="suite">Suite</option>
+        <option value="junior suite">Junior Suite</option>
+        <option value="single room">Single Room</option>
+      </select>
       </div>
     </div>
     <p class="avail-booking-title">All Available Rooms: </p>
@@ -325,20 +327,10 @@ const displayManagerPage = () => {
         </div>
         <button type="button" role="button" class="book-room-button">Book Room</button>
     </section>
-    <p class="future-booking-title">Your Upcoming Bookings: </p>
+    <p class="future-booking-title">Users Upcoming Bookings: </p>
     <section class="future-bookings-holder-manager">
       <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
       <div class="future-room-info">
-        <p class="trip-date">Trip Date: 2020/06/24</p>
-        <p class="room-type">Room Style: Residential Suite</p>
-        <p class="room-number">Room Number: 1</p>
-        <p class="confirmation-code">Confirmation Code: </p>
-      </div>
-    </section>
-    <p class="past-booking-title">Your Past Bookings: </p>
-    <section class="past-bookings-holder-manager">
-      <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
-      <div class="past-room-info">
         <p class="trip-date">Trip Date: 2020/06/24</p>
         <p class="room-type">Room Style: Residential Suite</p>
         <p class="room-number">Room Number: 1</p>
