@@ -159,6 +159,7 @@ const displayUserFutureBookingsManagerPage = (futureReservations) => {
         <p class="room-number">Room Number: ${bookingObj.roomNumber}</p>
         <p class="confirmation-code">Confirmation Code: dsh839u4uhnwjdq8u23</p>
       </div>
+      <button type="button" role="button" id="${bookingObj.roomNumber}" class="delete-booking-btn">Delete Booking</button>
       </section>`
   });
 }
@@ -201,12 +202,9 @@ const displayAvailableBookings = (user) => {
 }
 
 const displayAvailableBookingsManagerPage = (user) => {
-  console.log('fn')
   if(event.target.classList.contains("submit-date-button")) {
     date = $('.date-input').val();
-    console.log(date)
     let allAvailableRooms = user.getAvailableRoomsByDate(hotel, date);
-    console.log(allAvailableRooms);
     if (allAvailableRooms.length === 0) {
       $('.available-bookings-holder-manager').html(`<p>We are sorry, but there are no rooms available on that date. Please try selecting another date!</p>`)
     } else {

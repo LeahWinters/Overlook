@@ -129,8 +129,7 @@ label {
 .manager-info {
   background-color: $main-blue-color;
   border-radius: 0.2em;
-  display: flex;
-  flex-direction: row;
+  @include flexRow();
   font-size: 1.3em;
   margin-bottom: 2%;
   opacity: 0.9;
@@ -206,8 +205,7 @@ h5 {
 .future-bookings-holder-manager,
 .past-bookings-holder-manager {
   align-items: center;
-  display: flex;
-  flex-direction: column;
+  @include flexColumn();
   justify-content: center;
   margin: 2% 0 2% 0;
 }
@@ -217,13 +215,12 @@ h5 {
   @include flexColumn();
   font-size: 1.2em;
   justify-content: center;
-  margin-left: 29%;
+  margin-left: 14%;
 }
 
 .avail-hotel-info-manager {
   width: 93%;
-  display: flex;
-  flex-direction: row;
+  @include flexRow();
   margin: 2%;
 }
 
@@ -232,6 +229,20 @@ h5 {
   font-size: 1.2em;
   justify-content: center;
   margin-left: 1%;
+}
+
+.delete-booking-btn {
+  border: $accent-blue-border;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.5em;
+  height: 35%;
+  margin: 11% 0 0 13%;
+  width: 23%;
+}
+
+.delete-booking-btn:hover {
+  background-color: $accent-blue-color;
 }
 
 // user page (manager uses some of the same elements and css properties)
@@ -366,8 +377,7 @@ h4 {
 
 .past-holder {
   align-items: center;
-  display: flex;
-  flex-direction: row;
+  @include flexRow();
   height: 21%;
   justify-content: center;
   margin: 1%;
