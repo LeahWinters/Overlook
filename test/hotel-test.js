@@ -209,7 +209,7 @@ describe('Hotel', () => {
     expect(hotel.getUsersBookings(1).totalSpent).to.equal(1309);
   });
 
-  it.only('should be able to search for a user by user name, and return that found user', () => {
+  it('should be able to search for a user by user name, and return that found user', () => {
     expect(hotel.searchUserByName('Leatha Ullrich')).to.deep.equal([user1]);
   });
 
