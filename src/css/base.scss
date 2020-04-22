@@ -207,9 +207,16 @@ h5 {
 .past-bookings-holder-manager {
   align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   margin: 2% 0 2% 0;
+}
+.available-room-info-manager,
+.future-room-info-manager {
+  @include flexColumn();
+  font-size: 1.2em;
+  justify-content: center;
+  margin-left: 29%;
 }
 
 // user page (manager uses some of the same elements and css properties)

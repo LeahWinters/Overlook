@@ -2,14 +2,12 @@ import $ from 'jquery';
 import './css/base.scss';
 import Hotel from './hotel';
 import User from './user';
-import Manager from './manager';
 import domUpdates from './domUpdates';
 
 let userData;
 let roomData;
 let bookingData;
 let hotel;
-let manager;
 let user;
 let date;
 
@@ -91,9 +89,6 @@ const matchRoomsToCorrectBookings = () => {
   return bookings;
 }
 
-const createManager = () => {
-  manager = new Manager();
-}
 
 const createUser = (id, name) => {
   user = new User(id, name);
@@ -103,9 +98,9 @@ const gatherLoginInfo = () => {
   const userNameInput = $('.user-name-input');
   const passwordInput = $('.password-input');
   if (userNameInput.val() === 'manager' && passwordInput.val() === 'overlook2020') {
-    createManager();
     changeSectionClassToManager();
     displayManagerPage();
+    createUser();
     bindManagerEventListener();
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     changeSectionClassToUser();
@@ -145,6 +140,20 @@ const displayUserFutureBookings = (futureReservations) => {
     return `<section class="past-holder">
     <div class="image-holder"> <img class="room-image" src=${getCorrectRoomImage(bookingObj)}  alt="room-image"></div>
       <div class="future-room-info">
+        <p class="trip-date">Trip Date: ${bookingObj.date}</p>
+        <p class="room-type">Room Number: ${bookingObj.roomType}</p>
+        <p class="room-number">Room Number: ${bookingObj.roomNumber}</p>
+        <p class="confirmation-code">Confirmation Code: dsh839u4uhnwjdq8u23</p>
+      </div>
+      </section>`
+  });
+}
+
+const displayUserFutureBookingsManagerPage = (futureReservations) => {
+  return futureReservations.map(bookingObj => {
+    return `<section class="past-holder">
+    <div class="image-holder"> <img class="room-image" src=${getCorrectRoomImage(bookingObj)}  alt="room-image"></div>
+      <div class="future-room-info-manager">
         <p class="trip-date">Trip Date: ${bookingObj.date}</p>
         <p class="room-type">Room Number: ${bookingObj.roomType}</p>
         <p class="room-number">Room Number: ${bookingObj.roomNumber}</p>
@@ -271,11 +280,19 @@ const displayReservationConfirmation = (user, date) => {
   $('.available-bookings-holder').html(`<p class="confirmation">Thank you ${user.name} for booking with us! Your trip is on ${date}!</p>`);
 }
 
-// const getUserInfo = () => {
-//   let userName = $('.enter-user-name').val();
-//   let user = hotel.searchUserByName(userName);
-//   // createUser(userName.name, userName.id);
-// }
+const getAndDisplayUserInfo = () => {
+  let userName = $('.enter-user-name').val();
+  let currentUser = hotel.searchUserByName(userName);
+  user = currentUser[0];
+  $('h5').html(`${user.name}`);
+  let reservations = hotel.getUsersBookings(user.id);
+  let upcomingReservations = displayUserFutureBookingsManagerPage(reservations.upcomingTrips);
+  $('.future-bookings-holder-manager').append(`${upcomingReservations.join('')}`);
+  $('.total-spent').html(`Users has spent $${reservations.totalSpent} in total at Overlook Hotel Paradise.`)
+}
+
+// Rocio Schuster
+
 
 const bindUserEventListener = () => {
   $('.date-input-btn-holder').on('click', '.submit-date-button', null, function() {
@@ -289,11 +306,11 @@ const bindUserEventListener = () => {
   })
 }
 
-// const bindManagerEventListener = () => {
-//   $('.submit-user-name').on('click', function() {
-//     getUserInfo();
-//   });
-// }
+const bindManagerEventListener = () => {
+  $('.submit-user-name').on('click', function() {
+    getAndDisplayUserInfo();
+  });
+}
 
 const displayManagerPage = () => {
   $('.login-page').html(`<section class='manager-page'>
@@ -310,9 +327,9 @@ const displayManagerPage = () => {
       </section>
     </section>
     <section class="manager-create-booking">
-      <h5>Found Guest Name</h5>
+      <h5></h5>
       <div class="date-selector">
-      <p class="total-spent">Users has spent $ in total at Overlook Hotel Paradise.</p>
+      <p class="total-spent"></p>
         <p class="select-date-message-manager">Please choose the day (Guest Name) would like to stay with us:</p>
         <div class="date-input-btn-holder">
           <input class="date-input" type="text" placeholder="YYYY/MM/DD">
@@ -331,23 +348,11 @@ const displayManagerPage = () => {
     </div>
     <p class="avail-booking-title">All Available Rooms: </p>
     <section class="available-bookings-holder-manager">
-        <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
-        <div class="available-room-info">
-          <p class="trip-date">Trip Date: 2020/06/24</p>
-          <p class="room-type">Room Style: Residential Suite</p>
-          <p class="room-number">Room Number: 1</p>
-        </div>
-        <button type="button" role="button" class="book-room-button">Book Room</button>
+
     </section>
     <p class="future-booking-title">Users Upcoming Bookings: </p>
     <section class="future-bookings-holder-manager">
-      <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
-      <div class="future-room-info">
-        <p class="trip-date">Trip Date: 2020/06/24</p>
-        <p class="room-type">Room Style: Residential Suite</p>
-        <p class="room-number">Room Number: 1</p>
-        <p class="confirmation-code">Confirmation Code: </p>
-      </div>
+
     </section>
   </section>
   </section>
