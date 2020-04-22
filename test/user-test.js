@@ -179,12 +179,12 @@ describe('User', () => {
 
   it('should be able to get all of their past trips', () => {
     hotel.getUsersBookings(1);
-    expect(user1.pastTrips).to.deep.equal([booking5]);
+    expect(user1.pastTrips).to.deep.equal([booking2, booking5]);
   });
 
   it('should be able to get all of their upcoming trips', () => {
     hotel.getUsersBookings(1);
-    expect(user1.upcomingTrips).to.deep.equal([booking2, booking3]);
+    expect(user1.upcomingTrips).to.deep.equal([booking3]);
   });
 
   it('should be able to get all available bookings based on an entered date', () => {
