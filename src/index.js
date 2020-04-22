@@ -200,6 +200,32 @@ const displayAvailableBookings = (user) => {
   }
 }
 
+const displayAvailableBookingsManagerPage = (user) => {
+  console.log('fn')
+  if(event.target.classList.contains("submit-date-button")) {
+    date = $('.date-input').val();
+    console.log(date)
+    let allAvailableRooms = user.getAvailableRoomsByDate(hotel, date);
+    console.log(allAvailableRooms);
+    if (allAvailableRooms.length === 0) {
+      $('.available-bookings-holder-manager').html(`<p>We are sorry, but there are no rooms available on that date. Please try selecting another date!</p>`)
+    } else {
+      allAvailableRooms.forEach(room => {
+        $('.available-bookings-holder-manager').append(`<div class="avail-hotel-info-manager"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
+        <div class="available-room-info-manager">
+          <p class="room-type">Room Style: ${room.roomType}</p>
+          <p class="room-number">Room Number: ${room.number}</p>
+          <p class="bed-size">Bed Size: ${room.bedSize}</p>
+          <p class="num-beds">Number of Beds: ${room.numBeds}</p>
+        </div>
+          <button type="button" role="button" id="${room.number}" class="book-room-button">Book Room</button>
+        </div>
+        </section>`)
+      });
+    }
+  }
+}
+
 const getFilterInputToDisplay = () => {
   let selectedFilterValue = $('.filter-button').val();
   date = $('.date-input').val();
@@ -219,6 +245,25 @@ const getFilterInputToDisplay = () => {
   }
 }
 
+const getFilterInputToDisplayForManagerPage = () => {
+  let selectedFilterValue = $('.filter-button').val();
+  date = $('.date-input').val();
+  let roomType;
+  if (selectedFilterValue === 'residential suite') {
+    roomType = 'residential suite';
+    displayFilteredAvailableBookingsManagerPage(user, roomType, date);
+  } else if (selectedFilterValue === 'suite') {
+    roomType = 'suite';
+    displayFilteredAvailableBookingsManagerPage(user, roomType, date);
+  } else if (selectedFilterValue === 'junior suite') {
+    roomType = 'junior suite';
+    displayFilteredAvailableBookingsManagerPage(user, roomType, date);
+  } else if (selectedFilterValue === 'single room') {
+    roomType = 'single room';
+    displayFilteredAvailableBookingsManagerPage(user, roomType, date);
+  }
+}
+
 const displayFilteredAvailableBookings = (user, roomType, date) => {
   $('.available-bookings-holder').empty();
   let allFilteredRooms = user.filterRoomsByType(roomType, hotel, date);
@@ -228,6 +273,27 @@ const displayFilteredAvailableBookings = (user, roomType, date) => {
     allFilteredRooms.forEach(room => {
       $('.available-bookings-holder').append(`<div class="avail-hotel-info"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
       <div class="available-room-info">
+        <p class="room-type">Room Style: ${room.roomType}</p>
+        <p class="room-number">Room Number: ${room.number}</p>
+        <p class="bed-size">Bed Size: ${room.bedSize}</p>
+        <p class="num-beds">Number of Beds: ${room.numBeds}</p>
+      </div>
+        <button type="button" role="button" id="${room.number}" class="book-room-button">Book Room</button>
+      </div>
+      </section>`)
+    });
+  }
+}
+
+const displayFilteredAvailableBookingsManagerPage = (user, roomType, date) => {
+  $('.available-bookings-holder-manager').empty();
+  let allFilteredRooms = user.filterRoomsByType(roomType, hotel, date);
+  if (allFilteredRooms.length === 0) {
+    $('.available-bookings-holder-manager').html(`<p>We are sorry to inform you that there are not any available bookings on the filter you selected. Please try another one!</p>`);
+  } else {
+    allFilteredRooms.forEach(room => {
+      $('.available-bookings-holder-manager').append(`<div class="avail-hotel-info-manager"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
+      <div class="available-room-info-manager">
         <p class="room-type">Room Style: ${room.roomType}</p>
         <p class="room-number">Room Number: ${room.number}</p>
         <p class="bed-size">Bed Size: ${room.bedSize}</p>
@@ -288,7 +354,8 @@ const getAndDisplayUserInfo = () => {
   let reservations = hotel.getUsersBookings(user.id);
   let upcomingReservations = displayUserFutureBookingsManagerPage(reservations.upcomingTrips);
   $('.future-bookings-holder-manager').append(`${upcomingReservations.join('')}`);
-  $('.total-spent').html(`Users has spent $${reservations.totalSpent} in total at Overlook Hotel Paradise.`)
+  $('.total-spent').html(`Users has spent $${reservations.totalSpent} in total at Overlook Hotel Paradise.`);
+  $('.select-date-message-manager').html(`Please choose the day ${user.name} would like to stay with us:`);
 }
 
 // Rocio Schuster
@@ -310,6 +377,16 @@ const bindManagerEventListener = () => {
   $('.submit-user-name').on('click', function() {
     getAndDisplayUserInfo();
   });
+  $('.date-input-btn-holder').on('click', '.submit-date-button', null, function() {
+    console.log('fn creation')
+    displayAvailableBookingsManagerPage(user);
+  });
+  $('.filter-button').on('change', function() {
+    getFilterInputToDisplayForManagerPage();
+  });
+  $('.available-bookings-holder-manager').on('click', function() {
+    bookSelectedRoom(event);
+  })
 }
 
 const displayManagerPage = () => {
