@@ -245,6 +245,15 @@ h5 {
   background-color: $accent-blue-color;
 }
 
+.past-holder-manager {
+  align-items: center;
+  @include flexRow();
+  height: 33%;
+  justify-content: center;
+  margin: 1%;
+  width: 75%;
+}
+
 // user page (manager uses some of the same elements and css properties)
 
 .user-page {

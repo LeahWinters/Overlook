@@ -151,7 +151,7 @@ const displayUserFutureBookings = (futureReservations) => {
 
 const displayUserFutureBookingsManagerPage = (futureReservations) => {
   return futureReservations.map(bookingObj => {
-    return `<section class="past-holder">
+    return `<section class="past-holder-manager">
     <div class="image-holder"> <img class="room-image" src=${getCorrectRoomImage(bookingObj)}  alt="room-image"></div>
       <div class="future-room-info-manager">
         <p class="trip-date">Trip Date: ${bookingObj.date}</p>
@@ -159,7 +159,7 @@ const displayUserFutureBookingsManagerPage = (futureReservations) => {
         <p class="room-number">Room Number: ${bookingObj.roomNumber}</p>
         <p class="confirmation-code">Confirmation Code: dsh839u4uhnwjdq8u23</p>
       </div>
-      <button type="button" role="button" id="${bookingObj.roomNumber}" class="delete-booking-btn">Delete Booking</button>
+      <button type="button" role="button" id="${bookingObj.id}" class="delete-booking-btn">Delete Booking</button>
       </section>`
   });
 }
@@ -344,6 +344,33 @@ const displayReservationConfirmation = (user, date) => {
   $('.available-bookings-holder').html(`<p class="confirmation">Thank you ${user.name} for booking with us! Your trip is on ${date}!</p>`);
 }
 
+const selectBookingToDelete = (event) => {
+  let bookingID = event.target.id;
+  return bookingID;
+}
+
+const deleteSelectedBooking = (event, bookingID) => {
+  let dataToDelete = Number(selectBookingToDelete(event));
+   fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        'id': dataToDelete
+    })
+  })
+  .then(response => response.json())
+  .then(data => console.log('Success:', data))
+  .catch(err => console.log('there has been an error with your delete', error));
+  displayDeletionConfirmation();
+}
+
+const displayDeletionConfirmation = () => {
+  $('.available-bookings-holder-manager').empty();
+  $('.available-bookings-holder-manager').html(`<p class="confirmation">This booking has been successfully deleted.</p>`);
+}
+
 const getAndDisplayUserInfo = () => {
   let userName = $('.enter-user-name').val();
   let currentUser = hotel.searchUserByName(userName);
@@ -355,9 +382,6 @@ const getAndDisplayUserInfo = () => {
   $('.total-spent').html(`Users has spent $${reservations.totalSpent} in total at Overlook Hotel Paradise.`);
   $('.select-date-message-manager').html(`Please choose the day ${user.name} would like to stay with us:`);
 }
-
-// Rocio Schuster
-
 
 const bindUserEventListener = () => {
   $('.date-input-btn-holder').on('click', '.submit-date-button', null, function() {
@@ -376,7 +400,6 @@ const bindManagerEventListener = () => {
     getAndDisplayUserInfo();
   });
   $('.date-input-btn-holder').on('click', '.submit-date-button', null, function() {
-    console.log('fn creation')
     displayAvailableBookingsManagerPage(user);
   });
   $('.filter-button').on('change', function() {
@@ -384,6 +407,9 @@ const bindManagerEventListener = () => {
   });
   $('.available-bookings-holder-manager').on('click', function() {
     bookSelectedRoom(event);
+  });
+  $('.future-bookings-holder-manager').on('click', function() {
+    deleteSelectedBooking(event);
   })
 }
 
@@ -423,11 +449,9 @@ const displayManagerPage = () => {
     </div>
     <p class="avail-booking-title">All Available Rooms: </p>
     <section class="available-bookings-holder-manager">
-
     </section>
     <p class="future-booking-title">Users Upcoming Bookings: </p>
     <section class="future-bookings-holder-manager">
-
     </section>
   </section>
   </section>
