@@ -98,7 +98,7 @@ describe('Hotel', () => {
     booking2 = {
       "id": "5fwrgu4i7k55hl6t5",
       "userID": 1,
-      "date": "2020/04/20",
+      "date": "2020/04/22",
       "roomNumber": 2,
       "roomType": "suite",
       "bidet": false,
@@ -178,38 +178,38 @@ describe('Hotel', () => {
     expect(hotel.allRooms).to.deep.equal([room1, room2, room3, room4, room5, room6]);
   });
 
-  it.skip('should have an array of all the bookings made at the hotel', () => {
+  it('should have an array of all the bookings made at the hotel', () => {
     expect(hotel.allCurrentBookings).to.deep.equal([booking1, booking2, booking3, booking4, booking5, booking6]);
   });
 
-  it.skip('should be able to get the number of rooms that are available on todays date', () => {
+  it('should be able to get the number of rooms that are available on todays date', () => {
     expect(hotel.getNumOfRoomsAvailibleToday()).to.equal(5);
   });
 
-  it.skip('should be able to calculate the total revenue from today', () => {
+  it('should be able to calculate the total revenue from today', () => {
     expect(hotel.calculateTodaysRevenue()).to.equal(477.38);
   });
 
-  it.skip('should be able to calculate the percentage of rooms occupied today', () => {
+  it('should be able to calculate the percentage of rooms occupied today', () => {
     expect(hotel.calculateTodayPercentOccupied()).to.equal(17);
   });
 
-  it.skip('should be able to get a specific users past bookings', () => {
+  it('should be able to get a specific users past bookings', () => {
     hotel.getUsersBookings(1);
     expect(user1.pastTrips).to.deep.equal([booking5]);
   });
 
-  it.skip('should be able to get a specific users future bookings', () => {
+  it('should be able to get a specific users future bookings', () => {
     hotel.getUsersBookings(1);
     expect(user1.upcomingTrips).to.deep.equal([booking2, booking3]);
   });
 
-  it.skip('should be able to return the total amount the user has spent at the hotel on bookings', () => {
+  it('should be able to return the total amount the user has spent at the hotel on bookings', () => {
     hotel.getUsersBookings(1);
     expect(hotel.getUsersBookings(1).totalSpent).to.equal(1309);
   });
 
-  it.skip('should be able to search for a user by user name, and return that found user', () => {
+  it('should be able to search for a user by user name, and return that found user', () => {
     expect(hotel.searchUserByName('Leatha Ullrich')).to.deep.equal([user1]);
   });
 
