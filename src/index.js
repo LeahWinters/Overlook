@@ -106,6 +106,7 @@ const gatherLoginInfo = () => {
     createManager();
     changeSectionClassToManager();
     displayManagerPage();
+    bindManagerEventListener();
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     changeSectionClassToUser();
     displayUserPage(user);
@@ -270,6 +271,11 @@ const displayReservationConfirmation = (user, date) => {
   $('.available-bookings-holder').html(`<p class="confirmation">Thank you ${user.name} for booking with us! Your trip is on ${date}!</p>`);
 }
 
+// const getUserInfo = () => {
+//   let userName = $('.enter-user-name').val();
+//   let user = hotel.searchUserByName(userName);
+//   // createUser(userName.name, userName.id);
+// }
 
 const bindUserEventListener = () => {
   $('.date-input-btn-holder').on('click', '.submit-date-button', null, function() {
@@ -282,6 +288,12 @@ const bindUserEventListener = () => {
     bookSelectedRoom(event);
   })
 }
+
+// const bindManagerEventListener = () => {
+//   $('.submit-user-name').on('click', function() {
+//     getUserInfo();
+//   });
+// }
 
 const displayManagerPage = () => {
   $('.login-page').html(`<section class='manager-page'>

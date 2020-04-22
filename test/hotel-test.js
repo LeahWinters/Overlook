@@ -1,6 +1,5 @@
 const chai = require('chai');
 const expect = chai.expect;
-import $ from 'jquery';
 import Hotel from '../src/hotel';
 import User from '../src/user';
 
