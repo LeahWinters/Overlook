@@ -129,8 +129,7 @@ label {
 .manager-info {
   background-color: $main-blue-color;
   border-radius: 0.2em;
-  display: flex;
-  flex-direction: row;
+  @include flexRow();
   font-size: 1.3em;
   margin-bottom: 2%;
   opacity: 0.9;
@@ -179,10 +178,10 @@ label {
   background-color: $accent-blue-color;
 }
 
-.filter-hotel-rooms-dropdown {
-  height: 8%;
-  margin-top: 2%;
-  overflow: hidden;
+.filter-hotel-rooms-dropdown-manager {
+  align-self: center;
+  display: flex;
+  margin: 2% 0 2% 0;
 }
 
 .manager-create-booking {
@@ -206,10 +205,53 @@ h5 {
 .future-bookings-holder-manager,
 .past-bookings-holder-manager {
   align-items: center;
-  display: flex;
-  flex-direction: row;
+  @include flexColumn();
   justify-content: center;
   margin: 2% 0 2% 0;
+}
+
+.available-room-info-manager,
+.future-room-info-manager {
+  @include flexColumn();
+  font-size: 1.2em;
+  justify-content: center;
+  margin-left: 14%;
+}
+
+.avail-hotel-info-manager {
+  width: 93%;
+  @include flexRow();
+  margin: 2%;
+}
+
+.available-room-info-manager {
+  @include flexColumn();
+  font-size: 1.2em;
+  justify-content: center;
+  margin-left: 1%;
+}
+
+.delete-booking-btn {
+  border: $accent-blue-border;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.5em;
+  height: 35%;
+  margin: 11% 0 0 13%;
+  width: 23%;
+}
+
+.delete-booking-btn:hover {
+  background-color: $accent-blue-color;
+}
+
+.past-holder-manager {
+  align-items: center;
+  @include flexRow();
+  height: 33%;
+  justify-content: center;
+  margin: 1%;
+  width: 75%;
 }
 
 // user page (manager uses some of the same elements and css properties)
@@ -344,8 +386,7 @@ h4 {
 
 .past-holder {
   align-items: center;
-  display: flex;
-  flex-direction: row;
+  @include flexRow();
   height: 21%;
   justify-content: center;
   margin: 1%;

@@ -2,14 +2,12 @@ import $ from 'jquery';
 import './css/base.scss';
 import Hotel from './hotel';
 import User from './user';
-import Manager from './manager';
 import domUpdates from './domUpdates';
 
 let userData;
 let roomData;
 let bookingData;
 let hotel;
-let manager;
 let user;
 let date;
 
@@ -91,9 +89,6 @@ const matchRoomsToCorrectBookings = () => {
   return bookings;
 }
 
-const createManager = () => {
-  manager = new Manager();
-}
 
 const createUser = (id, name) => {
   user = new User(id, name);
@@ -103,9 +98,10 @@ const gatherLoginInfo = () => {
   const userNameInput = $('.user-name-input');
   const passwordInput = $('.password-input');
   if (userNameInput.val() === 'manager' && passwordInput.val() === 'overlook2020') {
-    createManager();
     changeSectionClassToManager();
     displayManagerPage();
+    createUser();
+    bindManagerEventListener();
   } else if (getUserIdNumber(userNameInput.val()) && passwordInput.val() === 'overlook2020') {
     changeSectionClassToUser();
     displayUserPage(user);
@@ -153,6 +149,21 @@ const displayUserFutureBookings = (futureReservations) => {
   });
 }
 
+const displayUserFutureBookingsManagerPage = (futureReservations) => {
+  return futureReservations.map(bookingObj => {
+    return `<section class="past-holder-manager">
+    <div class="image-holder"> <img class="room-image" src=${getCorrectRoomImage(bookingObj)}  alt="room-image"></div>
+      <div class="future-room-info-manager">
+        <p class="trip-date">Trip Date: ${bookingObj.date}</p>
+        <p class="room-type">Room Number: ${bookingObj.roomType}</p>
+        <p class="room-number">Room Number: ${bookingObj.roomNumber}</p>
+        <p class="confirmation-code">Confirmation Code: dsh839u4uhnwjdq8u23</p>
+      </div>
+      <button type="button" role="button" id="${bookingObj.id}" class="delete-booking-btn">Delete Booking</button>
+      </section>`
+  });
+}
+
 const displayUserPastBookings = (pastReservations) => {
   return pastReservations.map(bookingObj => {
     return `<section class="past-holder">
@@ -190,6 +201,29 @@ const displayAvailableBookings = (user) => {
   }
 }
 
+const displayAvailableBookingsManagerPage = (user) => {
+  if(event.target.classList.contains("submit-date-button")) {
+    date = $('.date-input').val();
+    let allAvailableRooms = user.getAvailableRoomsByDate(hotel, date);
+    if (allAvailableRooms.length === 0) {
+      $('.available-bookings-holder-manager').html(`<p>We are sorry, but there are no rooms available on that date. Please try selecting another date!</p>`)
+    } else {
+      allAvailableRooms.forEach(room => {
+        $('.available-bookings-holder-manager').append(`<div class="avail-hotel-info-manager"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
+        <div class="available-room-info-manager">
+          <p class="room-type">Room Style: ${room.roomType}</p>
+          <p class="room-number">Room Number: ${room.number}</p>
+          <p class="bed-size">Bed Size: ${room.bedSize}</p>
+          <p class="num-beds">Number of Beds: ${room.numBeds}</p>
+        </div>
+          <button type="button" role="button" id="${room.number}" class="book-room-button">Book Room</button>
+        </div>
+        </section>`)
+      });
+    }
+  }
+}
+
 const getFilterInputToDisplay = () => {
   let selectedFilterValue = $('.filter-button').val();
   date = $('.date-input').val();
@@ -209,6 +243,25 @@ const getFilterInputToDisplay = () => {
   }
 }
 
+const getFilterInputToDisplayForManagerPage = () => {
+  let selectedFilterValue = $('.filter-button').val();
+  date = $('.date-input').val();
+  let roomType;
+  if (selectedFilterValue === 'residential suite') {
+    roomType = 'residential suite';
+    displayFilteredAvailableBookingsManagerPage(user, roomType, date);
+  } else if (selectedFilterValue === 'suite') {
+    roomType = 'suite';
+    displayFilteredAvailableBookingsManagerPage(user, roomType, date);
+  } else if (selectedFilterValue === 'junior suite') {
+    roomType = 'junior suite';
+    displayFilteredAvailableBookingsManagerPage(user, roomType, date);
+  } else if (selectedFilterValue === 'single room') {
+    roomType = 'single room';
+    displayFilteredAvailableBookingsManagerPage(user, roomType, date);
+  }
+}
+
 const displayFilteredAvailableBookings = (user, roomType, date) => {
   $('.available-bookings-holder').empty();
   let allFilteredRooms = user.filterRoomsByType(roomType, hotel, date);
@@ -218,6 +271,27 @@ const displayFilteredAvailableBookings = (user, roomType, date) => {
     allFilteredRooms.forEach(room => {
       $('.available-bookings-holder').append(`<div class="avail-hotel-info"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
       <div class="available-room-info">
+        <p class="room-type">Room Style: ${room.roomType}</p>
+        <p class="room-number">Room Number: ${room.number}</p>
+        <p class="bed-size">Bed Size: ${room.bedSize}</p>
+        <p class="num-beds">Number of Beds: ${room.numBeds}</p>
+      </div>
+        <button type="button" role="button" id="${room.number}" class="book-room-button">Book Room</button>
+      </div>
+      </section>`)
+    });
+  }
+}
+
+const displayFilteredAvailableBookingsManagerPage = (user, roomType, date) => {
+  $('.available-bookings-holder-manager').empty();
+  let allFilteredRooms = user.filterRoomsByType(roomType, hotel, date);
+  if (allFilteredRooms.length === 0) {
+    $('.available-bookings-holder-manager').html(`<p>We are sorry to inform you that there are not any available bookings on the filter you selected. Please try another one!</p>`);
+  } else {
+    allFilteredRooms.forEach(room => {
+      $('.available-bookings-holder-manager').append(`<div class="avail-hotel-info-manager"><img class="room-image" src=${getCorrectRoomImage(room)} alt="room-image">
+      <div class="available-room-info-manager">
         <p class="room-type">Room Style: ${room.roomType}</p>
         <p class="room-number">Room Number: ${room.number}</p>
         <p class="bed-size">Bed Size: ${room.bedSize}</p>
@@ -270,6 +344,44 @@ const displayReservationConfirmation = (user, date) => {
   $('.available-bookings-holder').html(`<p class="confirmation">Thank you ${user.name} for booking with us! Your trip is on ${date}!</p>`);
 }
 
+const selectBookingToDelete = (event) => {
+  let bookingID = event.target.id;
+  return bookingID;
+}
+
+const deleteSelectedBooking = (event, bookingID) => {
+  let dataToDelete = Number(selectBookingToDelete(event));
+   fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        'id': dataToDelete
+    })
+  })
+  .then(response => response.json())
+  .then(data => console.log('Success:', data))
+  .catch(err => console.log('there has been an error with your delete', error));
+  displayDeletionConfirmation();
+}
+
+const displayDeletionConfirmation = () => {
+  $('.available-bookings-holder-manager').empty();
+  $('.available-bookings-holder-manager').html(`<p class="confirmation">This booking has been successfully deleted.</p>`);
+}
+
+const getAndDisplayUserInfo = () => {
+  let userName = $('.enter-user-name').val();
+  let currentUser = hotel.searchUserByName(userName);
+  user = currentUser[0];
+  $('h5').html(`${user.name}`);
+  let reservations = hotel.getUsersBookings(user.id);
+  let upcomingReservations = displayUserFutureBookingsManagerPage(reservations.upcomingTrips);
+  $('.future-bookings-holder-manager').append(`${upcomingReservations.join('')}`);
+  $('.total-spent').html(`Users has spent $${reservations.totalSpent} in total at Overlook Hotel Paradise.`);
+  $('.select-date-message-manager').html(`Please choose the day ${user.name} would like to stay with us:`);
+}
 
 const bindUserEventListener = () => {
   $('.date-input-btn-holder').on('click', '.submit-date-button', null, function() {
@@ -280,6 +392,24 @@ const bindUserEventListener = () => {
   });
   $('.available-bookings-holder').on('click', function() {
     bookSelectedRoom(event);
+  })
+}
+
+const bindManagerEventListener = () => {
+  $('.submit-user-name').on('click', function() {
+    getAndDisplayUserInfo();
+  });
+  $('.date-input-btn-holder').on('click', '.submit-date-button', null, function() {
+    displayAvailableBookingsManagerPage(user);
+  });
+  $('.filter-button').on('change', function() {
+    getFilterInputToDisplayForManagerPage();
+  });
+  $('.available-bookings-holder-manager').on('click', function() {
+    bookSelectedRoom(event);
+  });
+  $('.future-bookings-holder-manager').on('click', function() {
+    deleteSelectedBooking(event);
   })
 }
 
@@ -298,52 +428,30 @@ const displayManagerPage = () => {
       </section>
     </section>
     <section class="manager-create-booking">
-      <h5>Found Guest Name</h5>
+      <h5></h5>
       <div class="date-selector">
+      <p class="total-spent"></p>
         <p class="select-date-message-manager">Please choose the day (Guest Name) would like to stay with us:</p>
         <div class="date-input-btn-holder">
-          <input class="date-input" type="number" placeholder="YYYY/MM/DD">
+          <input class="date-input" type="text" placeholder="YYYY/MM/DD">
           <button class="submit-date-button" type="button" role="button">Select Date</button>
         </div>
       </div>
-      <div class="filter-hotel-rooms-dropdown">
-        <button class="filter-button"type="button" role="button">Filter you room search <i class="fa fa-caret-down"></i></button>
-      <div class="filter-content">
-        <a href="#">Residential Suite</a>
-        <a href="#">Suite</a>
-        <a href="#">Junior Suite</a>
-        <a href="#">Single Room</a>
+      <div class="filter-hotel-rooms-dropdown-manager">
+      <select value="Filter your room search" class="filter-button">
+        <option value="filter by room type" disabled selected>Filter available rooms by room style</option>
+        <option value="residential suite">Residential Suite</option>
+        <option value="suite">Suite</option>
+        <option value="junior suite">Junior Suite</option>
+        <option value="single room">Single Room</option>
+      </select>
       </div>
     </div>
     <p class="avail-booking-title">All Available Rooms: </p>
     <section class="available-bookings-holder-manager">
-        <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
-        <div class="available-room-info">
-          <p class="trip-date">Trip Date: 2020/06/24</p>
-          <p class="room-type">Room Style: Residential Suite</p>
-          <p class="room-number">Room Number: 1</p>
-        </div>
-        <button type="button" role="button" class="book-room-button">Book Room</button>
     </section>
-    <p class="future-booking-title">Your Upcoming Bookings: </p>
+    <p class="future-booking-title">Users Upcoming Bookings: </p>
     <section class="future-bookings-holder-manager">
-      <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
-      <div class="future-room-info">
-        <p class="trip-date">Trip Date: 2020/06/24</p>
-        <p class="room-type">Room Style: Residential Suite</p>
-        <p class="room-number">Room Number: 1</p>
-        <p class="confirmation-code">Confirmation Code: </p>
-      </div>
-    </section>
-    <p class="past-booking-title">Your Past Bookings: </p>
-    <section class="past-bookings-holder-manager">
-      <img class="room-image" src="https://images.unsplash.com/photo-1505773508401-e26ca9845131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2940&q=80" alt="room-image">
-      <div class="past-room-info">
-        <p class="trip-date">Trip Date: 2020/06/24</p>
-        <p class="room-type">Room Style: Residential Suite</p>
-        <p class="room-number">Room Number: 1</p>
-        <p class="confirmation-code">Confirmation Code: </p>
-      </div>
     </section>
   </section>
   </section>

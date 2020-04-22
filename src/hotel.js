@@ -14,12 +14,6 @@ class Hotel {
     return this.allRooms.length - todaysBookedRooms.length;
   }
 
-
-
-  // filterAvailableRoomsBySelectedDate() {
-  //
-  // }
-
   calculateTodaysRevenue() {
     const date = new Date();
     const today = `${date.getFullYear()}/0${date.getMonth()+1}/${date.getDate()}`;
@@ -59,6 +53,10 @@ class Hotel {
         }
     });
     return {pastTrips: user.pastTrips, upcomingTrips: user.upcomingTrips, totalSpent: Math.round(totalSpent)};
+  }
+
+  searchUserByName(name) {
+    return this.allUsers.filter(user => user.name === name);
   }
 }
 

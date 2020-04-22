@@ -224,7 +224,7 @@ describe('User', () => {
     }]);
   });
 
-  it.only('should be able to return available rooms, based on entered date and a room type', () => {
+  it('should be able to return available rooms, based on entered date and a room type', () => {
     expect(user1.filterRoomsByType('single room', hotel, '2020/04/20')).to.deep.equal([{
     number: 3,
     roomType: 'single room',

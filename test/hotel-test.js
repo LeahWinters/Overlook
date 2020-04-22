@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+const chai = require('chai');
+const expect = chai.expect;
 import Hotel from '../src/hotel';
 import User from '../src/user';
 
@@ -206,6 +207,10 @@ describe('Hotel', () => {
   it('should be able to return the total amount the user has spent at the hotel on bookings', () => {
     hotel.getUsersBookings(1);
     expect(hotel.getUsersBookings(1).totalSpent).to.equal(1309);
+  });
+
+  it.only('should be able to search for a user by user name, and return that found user', () => {
+    expect(hotel.searchUserByName('Leatha Ullrich')).to.deep.equal([user1]);
   });
 
 })
