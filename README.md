@@ -1,6 +1,7 @@
-Overlook was assigned to me as a final solo project in module 2. It is a hotel application where a manager or a guest can log in. Users can search a date that they would like to stay at the hotel, filter the availablerooms by the room type, and select a room to book which pushes the booking to the data base we were given. A manager can do all of the same things a user can do, but they can also search for a guest by name in the seach input, book a room for the found guest, and delete a booking for that guest which deletes the booking for the given data base.
+Overlook was assigned to me as a final solo project in my second quarter at Turing. It is a hotel application where a manager or a guest can log in. Users can search a date that they would like to stay at the hotel, filter the availablerooms by the room type, and select a room to book which pushes the booking to the data base we were given. A manager can do all of the same things a user can do, but they can also search for a guest by name in the seach input, book a room for the found guest, and delete a booking for that guest which deletes the booking for the given data base.
 
-I had to impliment es6 Javascript, jquery, and SASS into this project.
+## Learning Goals:
+  - to impliment ES6 Javascript, JQuery, and SASS 
 
 ## Login Page:
 
